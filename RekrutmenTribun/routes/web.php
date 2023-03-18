@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use  App\Http\Controllers\LandingController;
+use App\Http\Controllers\LamaranController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('landingpage', LandingController::class);
+Route::resource('lamaran', LamaranController::class);

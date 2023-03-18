@@ -1,0 +1,190 @@
+.body{
+    background-color: #00235B;
+}
+
+.wrapper {
+    /* display: flex;    */
+    align-items: center;
+    /* margin-left: 35%; */
+    justify-content: center;
+    color: black;
+}
+
+.typing-demo {
+    width: 37ch;
+    animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    /* border-right: 3px solid; */
+    font-size: larger;
+}
+
+@keyframes typing{
+    from{
+        width: 0
+    }
+}
+
+@keyframes blink{
+    50% {
+        border-color: transparent
+    }
+}
+
+.max-width{
+    max-width: 100%;
+    height: auto;
+}
+
+.edit-foto{
+    filter: brightness(100%) contrast(30%);
+}
+
+/* animasi untuk gambar fade-in */
+.fade-in{
+    animation: fade 5s;
+}
+
+@keyframes fade{
+    from{
+        opacity: 0%;
+    }to{
+        opacity: 100%;
+    }
+}
+
+/* animasi untuk gambar bergerak */
+.move-in{
+    animation: move 3s;
+}
+@keyframes move{
+    from{
+        left: 0%;
+    }to{
+        right: 100%;
+    }
+
+}
+
+
+/* z-index: berfungsi untuk menentukan posisi layer */
+.gambar-1{
+    position: relative;
+    z-index: 1;
+}
+
+.gambar-2{
+    position: relative;
+    z-index: 2;
+}
+
+/* button temukan pekerjaan */
+.button{
+    display: inline-block;   
+    position: relative;  
+    color: #19aae6;
+    background: white;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: medium;
+    padding: 16px 24px;
+    margin: 20px;    
+    border: 2px solid #19aae6;
+    border-radius: 8px;
+    z-index: 1;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.button:before{
+    content: "";
+    position: absolute;
+    background: #19aae6;
+    height: 150px;
+    width: 200px;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+button:hover{
+    color: white;
+}
+
+.button:before{
+    top: 100%;
+    left: 100%;
+    transition: 1s;
+
+}
+
+.button:hover:before{
+    top: -50px;
+    left: -6px;
+}
+
+.button:active:before{
+    background: #609EA2;
+    transition: 0s;
+}
+
+/*  */
+
+.inline {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.shape-atas{
+    width: auto;
+    height: 70px;
+    background-color: #FFDD83;
+    z-index: 0;
+    
+}
+
+.shape-office{
+    margin-right: 15%;
+    margin-top: 3%;
+}
+
+.bergabung-bers-kami{
+    margin-left: 10%;
+}
+
+.temukan-pekerjaan{
+    padding-left: 20%;
+}
+
+
+/* MEMUTAR OBJEK */
+
+.logo-image {
+  display: inline-block;
+  animation-name: rotate;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* index gerigi berputar */
+.index-0{
+    z-index: 0;
+}
+
+.index-1{
+    z-index: 1;
+}
+
+.index-2{
+    z-index: 2;
+}
