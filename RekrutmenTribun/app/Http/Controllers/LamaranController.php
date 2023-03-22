@@ -25,6 +25,7 @@ class LamaranController extends Controller
     public function create()
     {
         //
+        return view('Lamaran.create');
     }
 
     /**
@@ -36,6 +37,24 @@ class LamaranController extends Controller
     public function store(Request $request)
     {
         //
+        $this->authorize('create', Lamaran::class);
+
+        // melakukan validasi input
+        $ValidasiData = $request->validate([
+            'posisi' => 'required',
+            'deskripsi' => 'required',
+            'foto' => 'required|file|image|max:10000'
+        ]);
+
+        // alur data file foto
+        // 1.ambil ekstensi file
+        $ekstensi = $request->foto->getClientOriginalExtension();
+
+        // 2.rename file berdasarkan waktu perdetik untuk menghindari kesamaan nama foto
+        $nama_baru = "foto-".time().".".$ekstensi;
+
+        // 3.simpan foto ke local public
+        
     }
 
     /**

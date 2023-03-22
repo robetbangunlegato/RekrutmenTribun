@@ -69,7 +69,7 @@
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                 <div class="card h-100">
-                    <a href="" class="btn btn-primary h-100 position-relative"
+                    <a href="{{ url('lamaran/create') }}" class="btn btn-primary h-100 position-relative"
                         style="background-color: rgb(199, 199, 199); ">
                         <i class="bi bi-plus text-dark position-absolute top-50 start-50 translate-middle fs-5"
                             style=""></i>
