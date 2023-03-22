@@ -1,26 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-
-<body>
-    <div class="container-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 my-3">
-                    <h2 class="text-center">Selamat Datang di Website Rekrutmen, Silahkan Daftar.</h2>
+@extends('Navbar.index')
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                <div class="card h-100">
+                    <img src="{{ asset('jurnalis.jpg') }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="" class="btn btn-primary">Daftar</a>
+                    </div>
                 </div>
             </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                <div class="card h-100">
+                    <img src="{{ asset('jurnalis.jpg') }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="" class="btn btn-primary">Daftar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                <div class="card h-100">
+                    <img src="{{ asset('jurnalis.jpg') }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="" class="btn btn-primary">Daftar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                <div class="card h-100">
+                    <img src="{{ asset('jurnalis.jpg') }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="" class="btn btn-primary">Daftar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                <div class="card h-100">
+                    <img src="{{ asset('jurnalis.jpg') }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="" class="btn btn-primary">Daftar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                <div class="card h-100">
+                    <a href="" class="btn btn-primary h-100 position-relative"
+                        style="background-color: rgb(199, 199, 199); ">
+                        <i class="bi bi-plus text-dark position-absolute top-50 start-50 translate-middle fs-5"
+                            style=""></i>
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
-</body>
-
-</html>
+@endsection

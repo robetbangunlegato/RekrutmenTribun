@@ -18,5 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('landingpage', LandingController::class);
 Route::resource('lamaran', LamaranController::class);
+// Route::resource('lamaran', LamaranController::class);
