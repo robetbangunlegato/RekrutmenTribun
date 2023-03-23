@@ -14,7 +14,10 @@ class LamaranController extends Controller
     public function index()
     {
         //
-        return view('Lamaran.index');
+        $lamarans = Lamaran::all();
+        return view('Lamaran.index')->with("lamarans", $lamarans);
+        
+
     }
 
     /**
@@ -67,12 +70,12 @@ class LamaranController extends Controller
 
         // 6.cek apakah data masuk atau tidak ke tabel
         if($lamarans->exists()){
+            $request->session()->flash('info','sukses');
             return redirect()->route('lamaran.index');
-            $request->session()->flash('info','Lamaran Berhasil di Tambahkan!');
 
         }else{
-            return redirect()->route('lamaran.create');
             $request->session()->flash('info','Lamaran Gagal di Tambahkan!');
+            return redirect()->route('lamaran.create');
         }
 
 
@@ -99,6 +102,8 @@ class LamaranController extends Controller
     public function edit($id)
     {
         //
+        $lamarans = Lamaran::all();
+        return view('Lamaran.edit')->with('lamarans',$lamarans);
     }
 
     /**
@@ -122,5 +127,6 @@ class LamaranController extends Controller
     public function destroy($id)
     {
         //
+
     }
 }
