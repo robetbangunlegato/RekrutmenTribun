@@ -4,40 +4,41 @@
         <div class="row">
             <form action="{{ route('lamaran.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                {{-- posisi --}}
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Posisi</label>
                     <input type="text" id="posisi" class="form-control" name="posisi"
-                        placeholder="Masukan posisi/pekerjaan...">
+                        placeholder="Masukan posisi/pekerjaan..." value="{{ old('posisi') }}">
                     @error('posisi')
                         <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3" role="alert">
-                            {{ 'Posisi Lowongan Harus di Isi!' }}
+                            {{ 'Posisi lowongan harus di isi!' }}
                         </div>
                     @enderror
                 </div>
+                {{-- deskripsi --}}
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label class="form-label">Deskripsi</label>
-                    <textarea class="form-control" name="deskripsi" rows="3" placeholder="Masukan Deskripsi..."></textarea>
+                    <textarea class="form-control" name="deskripsi" rows="3" placeholder="Masukan Deskripsi...">{{ old('deskripsi') }}</textarea>
                     @error('deskripsi')
                         <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3" role="alert">
-                            {{ 'Deskripsi Lowongan Harus di Isi!' }}
+                            {{ 'Deskripsi lowongan harus di isi!' }}
                         </div>
                     @enderror
                 </div>
+                {{-- foto thumbnail --}}
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label for="" class="form-label">Masukan Thumbnail</label>
-                    <input class="form-control" type="file" name="foto" id="foto" onchange="PratinjauGambar()">
-                    @error('foto')
-                        <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3" role="alert">
-                            {{ 'Foto Thumbnail Harus di Isi!' }}
+                    <input class="form-control" type="file" name="foto" id="foto" onchange="PratinjauGambar()"
+                        value="{{ old('foto') }}">
+                    <p style="color: red">*rasio gambar sama sisi | kurang dari 800KB | JPG</p>
+                    @if ($errors->has('foto'))
+                        <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12">
+                            {{ $errors->first('foto') }}
                         </div>
-                    @enderror
+                    @endif
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <img src="" class="pratinjau-gambar" alt="">
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 my-3">
-                    <button type="submit" class="btn btn-primary col-lg-12">Tambahkan</button>
-                </div>
+                <img src="" class="pratinjau-gambar col-lg-4 col-md-4 col-sm-4 mb-3" alt="">
+                <button type="submit" class="btn btn-primary col-lg-12 col-md-12 col-sm-12 mb-3">Tambahkan</button>
 
             </form>
         </div>

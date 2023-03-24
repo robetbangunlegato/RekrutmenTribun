@@ -46,10 +46,14 @@ class LamaranController extends Controller
         $ValidasiData = $request->validate([
             'posisi' => 'required',
             'deskripsi' => 'required',
-            'foto' => 'required|file|image|max:10000'
+            'foto' => 'required|file|image|max:800|mimes:JPG,jpeg'
+        ],[
+            'foto.mimes' => 'Format gambar harus JPG/jpeg!',
+            'foto.max' => 'Ukuran maksimal 800KB!',
+            'required' => 'Foto thumbnail harus di isi!'
         ]);
 
-        // alur data file foto
+        // -----alur data file foto-----
         // 1.ambil ekstensi file
         $ekstensi = $request->foto->getClientOriginalExtension();
 
@@ -76,10 +80,7 @@ class LamaranController extends Controller
         }else{
             $request->session()->flash('info','Lamaran Gagal di Tambahkan!');
             return redirect()->route('lamaran.create');
-        }
-
-
-        
+        }        
     }
 
     /**
@@ -102,8 +103,10 @@ class LamaranController extends Controller
     public function edit($id)
     {
         //
-        $lamarans = Lamaran::all();
+        $lamarans = Lamaran::find($id);
+        // dd($lamaran);
         return view('Lamaran.edit')->with('lamarans',$lamarans);
+        // return view('Lamaran.edit', compact('oke'));
     }
 
     /**

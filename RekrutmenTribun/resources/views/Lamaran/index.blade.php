@@ -4,7 +4,7 @@
         <div class="row">
             @if (session()->get('info') === 'sukses')
                 <div class="col-lg-12 col-md-12 col-sm-12 ml-3 mr-2 alert alert-success waktu-tampil" role="waktu-tampil">
-                    {{ session()->get('info') }}
+                    {{ 'Lowongan berhasil di tambahkan!' }}
                 </div>
             @endif
         </div>
