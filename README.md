@@ -32,8 +32,8 @@ To run this project, follow these steps:
 
 ## Contribute
 
-If you wish to contribute to this project, please consult the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines.
+If you wish to contribute to this project, please consult this README file for guidelines.
 
 ## Licence
 
-This project is licensed under the MIT License - see file [LICENSE.md](LICENSE.md) for details.
+This project is not licensed.
