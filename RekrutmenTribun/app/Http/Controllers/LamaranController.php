@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Lamaran;
+use Illuminate\Support\Facades\Session;
 class LamaranController extends Controller
 {
     /**
@@ -39,9 +40,6 @@ class LamaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // $this->authorize('create', Lamaran::class);
-
         // melakukan validasi input
         $ValidasiData = $request->validate([
             'posisi' => 'required',
@@ -74,7 +72,8 @@ class LamaranController extends Controller
 
         // 6.cek apakah data masuk atau tidak ke tabel
         if($lamarans->exists()){
-            $request->session()->flash('info','sukses');
+            // Session::flash('success', 'Data berhasil disimpan!');
+            $request->session()->flash('success','Data berhasil di simpan!');
             return redirect()->route('lamaran.index');
 
         }else{
@@ -130,6 +129,8 @@ class LamaranController extends Controller
     public function destroy($id)
     {
         //
+        $lamaran->delete();
+        return redirect()->route('lamaran.index')->with('info','Lowongan' + $lamarans->posisi + 'berhasil di hapus');
 
     }
 }
