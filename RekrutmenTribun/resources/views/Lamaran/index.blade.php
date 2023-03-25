@@ -1,16 +1,23 @@
 @extends('Navbar.index')
 @section('content')
+    {{-- alert --}}
     <div class="container">
         <div class="row">
-            @if (session()->get('info') === 'sukses')
-                <div class="col-lg-12 col-md-12 col-sm-12 ml-3 mr-2 alert alert-success waktu-tampil" role="waktu-tampil">
-                    {{ 'Lowongan berhasil di tambahkan!' }}
-                </div>
-            @endif
+            <div class="container">
+                @if (session()->has('info'))
+                    <div class="alert alert-success alert-dismissible fade show col-lg-12 col-md-12 col-sm-12" role="alert">
+                        {{ session()->get('info') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+            </div>
         </div>
     </div>
+    @endif
     <div class="container">
         <div class="row">
+            {{-- body --}}
             @foreach ($lamarans as $item)
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                     <div class="card h-100">
@@ -20,7 +27,9 @@
                             <p class="card-text">{{ $item->deskripsi }}</p>
                         </div>
                         <div class="card-footer">
+                            {{-- buttton daftar --}}
                             <a href="" class="btn btn-primary">Daftar</a>
+                            {{-- button edit --}}
                             <a href="{{ url('lamaran/' . $item->id . '/edit') }}" class="btn btn-warning">Edit</a>
                             {{-- button hapus --}}
                             <button class="btn btn-danger btn-hapus" id-lowongan="{{ $item->id }}"
@@ -41,31 +50,9 @@
             </div>
         </div>
     </div>
+
     {{-- modal hapus --}}
-    <div class="modal fade" id="HapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form action="" method="POST" id="FormulirHapus">
-                    @method('DELETE')
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Hapus</h5>
-                        <button type="button" class="close bg-success" data-dismiss="modal" aria-label="Close"
-                            style="border-radius: 30%;">
-                            <i class="bi bi-x"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="isi-modal">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-danger">Hapus</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    @include('modal')
 
     <script>
         // mencari class button dengan nama 'btn-hapus dan menambahkan fungsi ketika tombol tersebut di klik'
@@ -81,7 +68,7 @@
             let posisi = $(this).attr('posisi-lowongan');
 
             // mengisi modal-body yang ada pada file modal
-            $("#isi-modal").text('Apakah lowongan ' + posisi + ' ingin di hapus?');
+            $("#isi-modal").text('Apakah lowongan ' + posisi + ' ingin di hapus ?');
         })
 
         // menambahkan attribut type yang bernilai 'submit' pada form di file modal untuk mengirim data ke controller

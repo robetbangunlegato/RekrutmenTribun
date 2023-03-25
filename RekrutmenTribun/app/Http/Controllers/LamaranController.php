@@ -73,7 +73,7 @@ class LamaranController extends Controller
         // 6.cek apakah data masuk atau tidak ke tabel
         if($lamarans->exists()){
             // Session::flash('success', 'Data berhasil disimpan!');
-            $request->session()->flash('success','Data berhasil di simpan!');
+            $request->session()->flash('info','Data berhasil di simpan!');
             return redirect()->route('lamaran.index');
 
         }else{
@@ -103,9 +103,7 @@ class LamaranController extends Controller
     {
         //
         $lamarans = Lamaran::find($id);
-        // dd($lamaran);
         return view('Lamaran.edit')->with('lamarans',$lamarans);
-        // return view('Lamaran.edit', compact('oke'));
     }
 
     /**
@@ -115,9 +113,48 @@ class LamaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Lamaran $lamaran)
     {
-        //
+        // melakukan validasi input
+        $ValidasiData = $request->validate([
+            'posisi' => 'required',
+            'deskripsi' => 'required',
+            'foto' => 'required|file|image|max:800|mimes:JPG,jpeg'
+        ],[
+            'foto.mimes' => 'Format gambar harus JPG/jpeg!',
+            'foto.max' => 'Ukuran maksimal 800KB!',
+            'required' => 'Foto thumbnail harus di isi!'
+        ]);
+
+        // -----alur data file foto-----        
+        // 1.ambil ekstensi file
+        $ekstensi = $request->foto->getClientOriginalExtension();
+
+        // 2.rename file berdasarkan waktu perdetik untuk menghindari kesamaan nama foto
+        $nama_baru = "foto-".time().".".$ekstensi;
+
+        // 3.simpan foto ke lokal public
+        $alamat = $request->foto->storeAs('public',$nama_baru);
+
+        // 4.buat sebuah objek dari tabel yang dimana kita akan menyimpan data-datanya.
+        $lamaran = Lamaran::find($lamaran->id);
+        $lamaran->posisi = $ValidasiData['posisi'];
+        $lamaran->deskripsi = $ValidasiData['deskripsi'];
+        $lamaran->foto = $nama_baru;
+
+        // 5.simpan ke tabel tadi yang ada di database
+        $lamaran->save();
+
+        // 6.cek apakah data masuk atau tidak ke tabel
+        if($lamaran->exists()){
+            $request->session()->flash('info','Data berhasil di ubah!');
+            return redirect()->route('lamaran.index');
+
+        }else{
+            $request->session()->flash('info','Lamaran gagal di ubah!');
+            return redirect()->route('lamaran.create');
+        }
+
     }
 
     /**
@@ -126,11 +163,11 @@ class LamaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Lamaran $lamaran)
     {
         //
         $lamaran->delete();
-        return redirect()->route('lamaran.index')->with('info','Lowongan' + $lamarans->posisi + 'berhasil di hapus');
+        return redirect()->route('lamaran.index')->with('info',"Lowongan $lamaran->posisi berhasil di hapus");
 
     }
 }

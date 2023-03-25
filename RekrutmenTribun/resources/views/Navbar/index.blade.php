@@ -37,6 +37,10 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
     </script>
 
+    {{-- CSS bootstrap --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
     {{-- coreUI js --}}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
         integrity=" sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">
@@ -115,7 +119,8 @@
                             Collapse</a></li>
                     <li class="nav-item"><a class="nav-link" href="base/list-group.html"><span class="nav-icon"></span>
                             List group</a></li>
-                    <li class="nav-item"><a class="nav-link" href="base/navs-tabs.html"><span class="nav-icon"></span>
+                    <li class="nav-item"><a class="nav-link" href="base/navs-tabs.html"><span
+                                class="nav-icon"></span>
                             Navs &amp; Tabs</a></li>
                     <li class="nav-item"><a class="nav-link" href="base/pagination.html"><span
                                 class="nav-icon"></span> Pagination</a></li>
