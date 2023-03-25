@@ -11,13 +11,14 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                @endif
             </div>
         </div>
     </div>
-    @endif
+    {{-- body --}}
     <div class="container">
         <div class="row">
-            {{-- body --}}
+
             @foreach ($lamarans as $item)
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                     <div class="card h-100">
@@ -54,27 +55,5 @@
     {{-- modal hapus --}}
     @include('modal')
 
-    <script>
-        // mencari class button dengan nama 'btn-hapus dan menambahkan fungsi ketika tombol tersebut di klik'
-        $('.btn-hapus').click(function() {
-
-            // mengambil data id lowongan
-            let id = $(this).attr('id-lowongan');
-
-            // mengisi value atrribut 'action' pada tag form yang awalnya kosong menjadi berisi alamat lowongan yang akan di hapus
-            $('#FormulirHapus').attr('action', '/lamaran/' + id);
-
-            // mengambil data 'posisi' agar modal konfirmasi lebih dinamis
-            let posisi = $(this).attr('posisi-lowongan');
-
-            // mengisi modal-body yang ada pada file modal
-            $("#isi-modal").text('Apakah lowongan ' + posisi + ' ingin di hapus ?');
-        })
-
-        // menambahkan attribut type yang bernilai 'submit' pada form di file modal untuk mengirim data ke controller
-        $('#FormulirHapus [type="submit"]').click(function() {
-            $('#FormulirHapus').submit();
-
-        })
-    </script>
+    <script src="js/dinamisteksmodal.js"></script>
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Lamaran;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 class LamaranController extends Controller
 {
     /**
@@ -164,8 +165,14 @@ class LamaranController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Lamaran $lamaran)
-    {
-        //
+    {   
+
+        // menghapus foto dari local storage
+        // 1.ambil nama file yang ingin di hapus
+        $nama_foto = Lamaran::find($lamaran)->pluck('foto');
+        // 2.hapus file tersebut tapi pastikan bentuk nama nya berbentuk single value buka array, selesai foto di local sudah terhapus.
+        Storage::delete(['public/'.$nama_foto[0]]);
+
         $lamaran->delete();
         return redirect()->route('lamaran.index')->with('info',"Lowongan $lamaran->posisi berhasil di hapus");
 
