@@ -2,14 +2,14 @@
 @section('content')
     <div class="container">
         <div class="row">
-            {{-- @dd($lamaran) --}}
+            {{-- @dd($lamarans->foto) --}}
             <form action="{{ route('lamaran.update', [$lamarans->id]) }}" method="post" enctype="multipart/form-data">
                 @method('PATCH')
                 @csrf
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Posisi</label>
                     <input type="text" id="posisi" class="form-control" name="posisi"
-                        placeholder="Masukan posisi/pekerjaan..." value="{{ old('posisi') ?? $lamarans->posisi }}">
+                        placeholder="Masukan posisi/pekerjaan..." value="{{ $lamarans->posisi }}">
                     @error('posisi')
                         <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3" role="alert">
                             {{ 'Posisi Lowongan Harus di Isi!' }}
@@ -28,11 +28,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label for="" class="form-label">Masukan Thumbnail</label>
                     <input class="form-control" type="file" name="foto" id="foto" onchange="PratinjauGambar()">
-                    @if ($lamarans->foto)
-                        <img src="{{ asset('storage/' . $lamarans->foto) }}" class="pratinjau-gambar my-3" alt="">
-                    @else
-                        <img src="" class="pratinjau-gambar my-3" alt="">
-                    @endif
+                    <img src="{{ asset('storage/' . $lamarans->foto) }}" class="pratinjau-gambar my-3" alt="">
                     @error('foto')
                         <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3" role="alert">
                             {{ 'Foto Thumbnail Harus di Isi!' }}

@@ -18,5 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+$id = 55;
 Route::resource('lamaran', LamaranController::class);
 // Route::resource('lamaran', LamaranController::class);

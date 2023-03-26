@@ -18,8 +18,6 @@ class LamaranController extends Controller
         //
         $lamarans = Lamaran::all();
         return view('Lamaran.index')->with("lamarans", $lamarans);
-        
-
     }
 
     /**
@@ -104,6 +102,7 @@ class LamaranController extends Controller
     {
         //
         $lamarans = Lamaran::find($id);
+        
         return view('Lamaran.edit')->with('lamarans',$lamarans);
     }
 
@@ -120,33 +119,35 @@ class LamaranController extends Controller
         $ValidasiData = $request->validate([
             'posisi' => 'required',
             'deskripsi' => 'required',
-            'foto' => 'required|file|image|max:800|mimes:JPG,jpeg'
+            'foto' => 'file|image|max:800|mimes:JPG,jpeg'
         ],[
             'foto.mimes' => 'Format gambar harus JPG/jpeg!',
-            'foto.max' => 'Ukuran maksimal 800KB!',
-            'required' => 'Foto thumbnail harus di isi!'
+            'foto.max' => 'Ukuran maksimal 800KB!'
         ]);
 
-        // -----alur data file foto-----        
-        // 1.ambil ekstensi file
-        $ekstensi = $request->foto->getClientOriginalExtension();
+        $nama_baru = '';
 
-        // 2.rename file berdasarkan waktu perdetik untuk menghindari kesamaan nama foto
-        $nama_baru = "foto-".time().".".$ekstensi;
+        if($request->hasFile('foto')){
+            $nama_foto_lama = $lamaran->foto;
+            Storage::delete(['public/'.$nama_foto_lama]);
+            $ekstensi = $request->foto->getClientOriginalExtension();
+            $nama_baru = "foto-".time().".".$ekstensi;
+            $alamat = $request->foto->storeAs('public',$nama_baru);
+        }else{
+            $ValidasiData['foto']=$lamaran->foto;
+            $nama_baru = $ValidasiData['foto'];
+        }
 
-        // 3.simpan foto ke lokal public
-        $alamat = $request->foto->storeAs('public',$nama_baru);
-
-        // 4.buat sebuah objek dari tabel yang dimana kita akan menyimpan data-datanya.
-        $lamaran = Lamaran::find($lamaran->id);
+        // buat sebuah objek dari tabel yang dimana kita akan menyimpan data-datanya.
+        $lamaran = Lamaran::find($lamaran->id);           
         $lamaran->posisi = $ValidasiData['posisi'];
         $lamaran->deskripsi = $ValidasiData['deskripsi'];
         $lamaran->foto = $nama_baru;
 
-        // 5.simpan ke tabel tadi yang ada di database
-        $lamaran->save();
+        // simpan ke tabel tadi yang ada di database
+        $lamaran->update();
 
-        // 6.cek apakah data masuk atau tidak ke tabel
+        // 6.cek apakah data ter update atau tidak ke tabel
         if($lamaran->exists()){
             $request->session()->flash('info','Data berhasil di ubah!');
             return redirect()->route('lamaran.index');
@@ -155,7 +156,6 @@ class LamaranController extends Controller
             $request->session()->flash('info','Lamaran gagal di ubah!');
             return redirect()->route('lamaran.create');
         }
-
     }
 
     /**
