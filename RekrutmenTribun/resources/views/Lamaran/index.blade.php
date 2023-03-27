@@ -22,7 +22,8 @@
             @foreach ($lamarans as $item)
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                     <div class="card h-100">
-                        <img src="{{ asset('storage/' . $item->foto) }}" class="card-img-top" alt="...">
+                        <img src="{{ asset('storage/' . $item->foto) }}" class="card-img-top" alt="..." width="401px"
+                            height="401px" style="object-fit: cover">
                         <div class="card-body">
                             <h5 class="card-title">{{ $item->posisi }}</h5>
                             <p class="card-text">{{ $item->deskripsi }}</p>
@@ -52,8 +53,8 @@
         </div>
     </div>
 
-    {{-- modal hapus --}}
+    {{-- HTML modal hapus --}}
     @include('modal')
-
+    {{-- javascript modal hapus --}}
     <script src="js/dinamisteksmodal.js"></script>
 @endsection

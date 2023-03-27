@@ -17,7 +17,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>CoreUI Free Bootstrap Admin Template</title>
+    <title>Rekrutmen Tribun</title>
     <link rel="manifest" href="assets/favicon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
@@ -75,6 +75,7 @@
             f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-KX4JH47');
     </script>
+    <link rel="icon" href="{{ asset('simbol_tribun.png') }}">
 </head>
 
 <body>
@@ -117,7 +118,8 @@
                             Carousel</a></li>
                     <li class="nav-item"><a class="nav-link" href="base/collapse.html"><span class="nav-icon"></span>
                             Collapse</a></li>
-                    <li class="nav-item"><a class="nav-link" href="base/list-group.html"><span class="nav-icon"></span>
+                    <li class="nav-item"><a class="nav-link" href="base/list-group.html"><span
+                                class="nav-icon"></span>
                             List group</a></li>
                     <li class="nav-item"><a class="nav-link" href="base/navs-tabs.html"><span
                                 class="nav-icon"></span>
