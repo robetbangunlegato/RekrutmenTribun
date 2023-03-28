@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Lamaran;
 use Illuminate\Support\Facades\Session;
@@ -145,7 +143,7 @@ class LamaranController extends Controller
         $lamaran->foto = $nama_baru;
 
         // simpan ke tabel tadi yang ada di database
-        $lamaran->update();
+        $lamaran->update();          
 
         // 6.cek apakah data ter update atau tidak ke tabel
         if($lamaran->exists()){

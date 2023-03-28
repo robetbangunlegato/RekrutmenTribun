@@ -30,7 +30,7 @@
                         </div>
                         <div class="card-footer">
                             {{-- buttton daftar --}}
-                            <a href="" class="btn btn-primary">Daftar</a>
+                            <a href="{{ url('daftar/' . $item->id . '/index') }}" class="btn btn-primary">Daftar</a>
                             {{-- button edit --}}
                             <a href="{{ url('lamaran/' . $item->id . '/edit') }}" class="btn btn-warning">Edit</a>
                             {{-- button hapus --}}

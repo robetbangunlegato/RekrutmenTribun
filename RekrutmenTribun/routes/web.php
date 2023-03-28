@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use  App\Http\Controllers\LandingController;
+use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\LamaranController;
+use  App\Http\Controllers\LandingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,4 +21,4 @@ Route::get('/', function () {
 
 $id = 55;
 Route::resource('lamaran', LamaranController::class);
-// Route::resource('lamaran', LamaranController::class);
+Route::resource('daftar', DaftarController::class);
