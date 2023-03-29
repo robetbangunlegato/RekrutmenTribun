@@ -1,11 +1,11 @@
 @extends('Navbar.index')
 @section('content')
-    {{-- @dd($id_lamaran) --}}
+    {{-- @dd($daftar->posisi) --}}
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h1 class="text-center">Formulir Pendaftaran.{{ $posisi }}</h1>
-                <h1>{{}}</h1>
+                <h1 class="text-center">Formulir Pendaftaran {{ $daftar->posisi }}</h1>
+                {{-- <h1>{{}}</h1> --}}
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                 <label for="" class="form-label">KTP</label>

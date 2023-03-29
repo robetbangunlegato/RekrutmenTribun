@@ -18,12 +18,9 @@ class DaftarController extends Controller
     {
         //
         $id_lamaran = session('id');
-        $posisi = DB::table('lamarans')
-        ->select('posisi')
-        ->where('id' == '59')
-        ->get();
-        dd($posisi);
-        return view('Daftar.index')->with('posisi',$posisi);
+        $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
+        // dd($lamaran_dipilih);
+        return view('Daftar.index')->with('daftar',$lamaran_dipilih);
         
     }
 
