@@ -18,7 +18,6 @@
     {{-- body --}}
     <div class="container">
         <div class="row">
-
             @foreach ($lamarans as $item)
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                     <div class="card h-100">
@@ -30,7 +29,7 @@
                         </div>
                         <div class="card-footer">
                             {{-- buttton daftar --}}
-                            <a href="{{ url('daftar/' . $item->id . '/index') }}" class="btn btn-primary">Daftar</a>
+                            <a href="{{ route('lamaran.show', ['id' => $item->id]) }}" class="btn btn-primary">Daftar</a>
                             {{-- button edit --}}
                             <a href="{{ url('lamaran/' . $item->id . '/edit') }}" class="btn btn-warning">Edit</a>
                             {{-- button hapus --}}

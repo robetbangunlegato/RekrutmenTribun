@@ -19,6 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-$id = 55;
 Route::resource('lamaran', LamaranController::class);
 Route::resource('daftar', DaftarController::class);
+Route::get('/lamaran/{id}', 'LamaranController@show')->name('lamaran.show');
+
+
+

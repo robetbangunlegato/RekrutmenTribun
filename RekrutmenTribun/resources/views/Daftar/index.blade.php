@@ -1,29 +1,31 @@
 @extends('Navbar.index')
 @section('content')
+    {{-- @dd($id_lamaran) --}}
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h1 class="text-center">Formulir Pendaftaran</h1>
+                <h1 class="text-center">Formulir Pendaftaran.{{ $posisi }}</h1>
+                <h1>{{}}</h1>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                 <label for="" class="form-label">KTP</label>
-                <input type="file" value="" name="ktp" placeholder="Masukan file KTP..." class="form-control">
+                <input type="file" value="" name="ktp" class="form-control">
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                 <label for="" class="form-label">NPWP</label>
-                <input type="file" value="" name="ktp" placeholder="Masukan file NPWP..." class="form-control">
+                <input type="file" value="" name="npwp" class="form-control">
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                 <label for="" class="form-label">CV</label>
-                <input type="file" value="" name="ktp" placeholder="Masukan file CV..." class="form-control">
+                <input type="file" value="" name="cv" class="form-control">
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                 <label for="" class="form-label">Lamaran</label>
-                <input type="file" value="" name="ktp" placeholder="Masukan file KTP..." class="form-control">
+                <input type="file" value="" name="lamaran" class="form-control">
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                 <label for="" class="form-label">Data Pendukung</label>
-                <input type="file" value="" name="ktp" placeholder="Masukan file KTP..." class="form-control">
+                <input type="file" value="" name="data_pendukung" class="form-control">
             </div>
             <div class="cotainer">
                 <div class="row">

@@ -14,11 +14,17 @@ class DaftarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request)
     {
         //
-        $lamaran = Lamaran::all();
-        dd($lamaran);
+        $id_lamaran = session('id');
+        $posisi = DB::table('lamarans')
+        ->select('posisi')
+        ->where('id' == '59')
+        ->get();
+        dd($posisi);
+        return view('Daftar.index')->with('posisi',$posisi);
+        
     }
 
     /**

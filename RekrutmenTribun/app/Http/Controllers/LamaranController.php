@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 use App\Models\Lamaran;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+
 class LamaranController extends Controller
 {
     /**
@@ -88,6 +90,11 @@ class LamaranController extends Controller
     public function show($id)
     {
         //
+        $data = Lamaran::findOrFail($id);
+        $id_lamaran = $data->id;
+
+        return redirect()->route('daftar.index')->with('id',$id_lamaran);        
+
     }
 
     /**
@@ -99,9 +106,6 @@ class LamaranController extends Controller
     public function edit($id)
     {
         //
-        $lamarans = Lamaran::find($id);
-        
-        return view('Lamaran.edit')->with('lamarans',$lamarans);
     }
 
     /**
