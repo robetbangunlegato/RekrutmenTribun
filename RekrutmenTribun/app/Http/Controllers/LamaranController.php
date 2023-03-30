@@ -91,10 +91,9 @@ class LamaranController extends Controller
     {
         //
         $data = Lamaran::findOrFail($id);
-        $id_lamaran = $data->id;
-
-        return redirect()->route('daftar.index')->with('id',$id_lamaran);        
-
+        $id = $data->id;
+        Session::put('id', $id);
+        return redirect()->route('daftar.index');
     }
 
     /**
@@ -106,6 +105,8 @@ class LamaranController extends Controller
     public function edit($id)
     {
         //
+        $lamaran = Lamaran::find($id);
+        return view('Lamaran.edit')->with('lamarans',$lamaran);
     }
 
     /**

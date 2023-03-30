@@ -37,7 +37,7 @@
                         </div>
                     @endif
                 </div>
-                <img src="" class="pratinjau-gambar col-lg-4 col-md-4 col-sm-4 mb-3" alt="">
+                <img src="" class="pratinjau-gambar col-lg-4 col-md-4 col-sm-4 mb-3 img-fluid" alt="">
                 <button type="submit" class="btn btn-primary col-lg-12 col-md-12 col-sm-12 mb-3">Tambahkan</button>
 
             </form>

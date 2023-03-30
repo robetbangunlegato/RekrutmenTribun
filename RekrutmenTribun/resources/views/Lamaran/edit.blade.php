@@ -28,7 +28,8 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label for="" class="form-label">Masukan Thumbnail</label>
                     <input class="form-control" type="file" name="foto" id="foto" onchange="PratinjauGambar()">
-                    <img src="{{ asset('storage/' . $lamarans->foto) }}" class="pratinjau-gambar my-3" alt="">
+                    <img src="{{ asset('storage/' . $lamarans->foto) }}" class="pratinjau-gambar my-3 img-fluid"
+                        alt="">
                     @error('foto')
                         <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3" role="alert">
                             {{ 'Foto Thumbnail Harus di Isi!' }}

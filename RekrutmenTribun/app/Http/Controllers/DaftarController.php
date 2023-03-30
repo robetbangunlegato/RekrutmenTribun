@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\LamaranController;
 use App\Models\Lamaran;
 use Carbon\carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class DaftarController extends Controller
 {
@@ -17,9 +19,8 @@ class DaftarController extends Controller
     public function index(Request $request)
     {
         //
-        $id_lamaran = session('id');
+        $id_lamaran = Session::get('id');
         $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
-        // dd($lamaran_dipilih);
         return view('Daftar.index')->with('daftar',$lamaran_dipilih);
         
     }

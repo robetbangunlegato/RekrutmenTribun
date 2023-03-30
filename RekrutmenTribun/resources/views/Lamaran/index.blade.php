@@ -16,9 +16,11 @@
         </div>
     </div>
     {{-- body --}}
+
     <div class="container">
         <div class="row">
             @foreach ($lamarans as $item)
+                {{-- @dd($item->id) --}}
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                     <div class="card h-100">
                         <img src="{{ asset('storage/' . $item->foto) }}" class="card-img-top" alt="..." width="401px"
@@ -56,4 +58,12 @@
     @include('modal')
     {{-- javascript modal hapus --}}
     <script src="js/dinamisteksmodal.js"></script>
+
+    {{-- script mengambil id card yang dipilih dan mengirimnya ke DaftarController --}}
+    <script>
+        $('.btn-kirimID').click(function() {
+            var id = $(this).attr('id');
+            window.location.href = '/daftar?id=' + $id;
+        })
+    </script>
 @endsection
