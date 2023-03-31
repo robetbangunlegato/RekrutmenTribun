@@ -79,6 +79,7 @@
         })(window, document, 'script', 'dataLayer', 'GTM-KX4JH47');
     </script>
     <link rel="icon" href="{{ asset('simbol_tribun.png') }}">
+    {{-- <link rel="stylesheet" href="custom.css"> --}}
 </head>
 
 <body>

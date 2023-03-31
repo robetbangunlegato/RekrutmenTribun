@@ -1,5 +1,11 @@
 @extends('Navbar.index')
 @section('content')
+    <style>
+        .tambah-lamaran {
+            width: 390, 4px;
+            height: 545px;
+        }
+    </style>
     {{-- alert --}}
     <div class="container">
         <div class="row">
@@ -42,15 +48,15 @@
                     </div>
                 </div>
             @endforeach
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                <div class="card h-100">
-                    <a href="{{ url('lamaran/create') }}" class="btn btn-primary h-100 position-relative"
-                        style="background-color: rgb(199, 199, 199); ">
-                        <i class="bi bi-plus text-dark position-absolute top-50 start-50 translate-middle fs-5"
-                            style=""></i>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-3 fixed-h">
+                <div class="card tambah-lamaran">
+                    <a href="{{ url('lamaran/create') }}" class="btn btn-secondary h-100 position-relative">
+                        <i class="bi bi-plus text-dark position-absolute top-50 start-50 translate-middle text-white"
+                            style="font-size: 70px"></i>
                     </a>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -58,12 +64,4 @@
     @include('modal')
     {{-- javascript modal hapus --}}
     <script src="js/dinamisteksmodal.js"></script>
-
-    {{-- script mengambil id card yang dipilih dan mengirimnya ke DaftarController --}}
-    <script>
-        $('.btn-kirimID').click(function() {
-            var id = $(this).attr('id');
-            window.location.href = '/daftar?id=' + $id;
-        })
-    </script>
 @endsection

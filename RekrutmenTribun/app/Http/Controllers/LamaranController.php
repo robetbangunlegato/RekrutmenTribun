@@ -90,9 +90,14 @@ class LamaranController extends Controller
     public function show($id)
     {
         //
+
+        // meengambil data yang dipilih (semua kolom)
         $data = Lamaran::findOrFail($id);
+        // mengambil data id yang dipilih (kolom id saja)
         $id = $data->id;
+        // mengirim data dengan key acess 'id'
         Session::put('id', $id);
+        // memindahkan view ke halaman daftar index
         return redirect()->route('daftar.index');
     }
 
