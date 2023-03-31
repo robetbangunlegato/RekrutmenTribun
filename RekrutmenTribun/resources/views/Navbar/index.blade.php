@@ -85,12 +85,15 @@
 <body>
     <div class=" sidebar sidebar-dark sidebar-fixed" id="sidebar">
         <div class="sidebar-brand d-none d-md-flex">
-            <svg class="sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
-                <use xlink:href="assets/brand/coreui.svg#full"></use>
-            </svg>
-            <svg class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">
-                <use xlink:href="assets/brand/coreui.svg#signet"></use>
-            </svg>
+            {{-- <svg class="" alt="CoreUI Logo"> --}}
+            {{-- <use xlink:href="assets/brand/coreui.svg#full"></use> --}}
+            <img src="{{ asset('logo_tribun.png') }}" width="128" height="56" class="sidebar-brand-full">
+            {{-- </svg> --}}
+            {{-- <svg class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo"> --}}
+            {{-- <use xlink:href="assets/brand/coreui.svg#signet"></use> --}}
+            <img src="{{ asset('simbol_tribun.png') }}" alt="" class="sidebar-brand-narrow" width="40"
+                height="40">
+            {{-- </svg> --}}
         </div>
         <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
             <li class="nav-item"><a class="nav-link" href="index.html">
@@ -254,16 +257,17 @@
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
         <header class="header header-sticky mb-4">
             <div class="container-fluid">
-                <button class="header-toggler px-md-0 me-md-3" type="button"
-                    onclick="if (!window.__cfRLUnblockHandlers) return false; coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()"
-                    data-bs-toggle="offcanvas" aria-controls="sidebar">
+                {{-- sidebar button --}}
+                <button class="header-toggler px-md-0 me-md-3" style="color: black;" type="button"
+                    onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
                     <svg class="icon icon-lg">
                         <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-menu') }}"></use>
                     </svg>
-                </button><a class="header-brand d-md-none" href="#">
-                    <svg width="118" height="46" alt="CoreUI Logo">
-                        <use xlink:href="assets/brand/coreui.svg#full"></use>
-                    </svg></a>
+                </button>
+                <a class="header-brand d-md-none" href="#">
+                    <img src="{{ asset('logo_tribun.png') }}" alt="" class="img-fluid" width="118"
+                        height="46">
+                </a>
                 <ul class="header-nav ms-3">
                     <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown"
                             href="#" role="button" aria-haspopup="true" aria-expanded="false">

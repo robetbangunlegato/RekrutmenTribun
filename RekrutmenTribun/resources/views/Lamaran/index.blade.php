@@ -1,11 +1,13 @@
 @extends('Navbar.index')
 @section('content')
+    {{-- membuat ukuran lamaran fix --}}
     <style>
         .tambah-lamaran {
             width: 390, 4px;
             height: 545px;
         }
     </style>
+
     {{-- alert --}}
     <div class="container">
         <div class="row">
@@ -21,8 +23,8 @@
             </div>
         </div>
     </div>
-    {{-- body --}}
 
+    {{-- body --}}
     <div class="container">
         <div class="row">
             @foreach ($lamarans as $item)
@@ -56,10 +58,8 @@
                     </a>
                 </div>
             </div>
-
         </div>
     </div>
-
     {{-- HTML modal hapus --}}
     @include('modal')
     {{-- javascript modal hapus --}}
