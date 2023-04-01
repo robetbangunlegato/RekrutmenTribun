@@ -95,12 +95,40 @@
                 height="40">
             {{-- </svg> --}}
         </div>
+
         <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
+
+            {{-- <li class="nav-item">
+                <a href="">
+                    <svg class="nav.icon">
+                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-home"></use>
+                </a>
+                </svg>Lamaran
+
+
+            </li> --}}
+            <li class="nav-item"><a class="nav-link" href="{{ url('lamaran') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-home"></use>
+                    </svg>Lamaran</a>
+            </li>
             <li class="nav-item"><a class="nav-link" href="index.html">
                     <svg class="nav-icon">
-                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
-                    </svg> Dashboard<span class="badge badge-sm bg-info ms-auto">NEW</span></a></li>
-            <li class="nav-title">Theme</li>
+                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-voice-over-record"></use>
+                    </svg>Wawancara</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="index.html">
+                    <svg class="nav-icon">
+                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-color-border"></use>
+                    </svg>Psikotes</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="index.html">
+                    <svg class="nav-icon">
+                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-align-center"></use>
+                    </svg>Pengumuman Akhir</a>
+            </li>
+            {{-- <li class="nav-title">Theme</li> --}}
+            {{-- 
             <li class="nav-item"><a class="nav-link" href="colors.html">
                     <svg class="nav-icon">
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
@@ -250,7 +278,7 @@
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-layers"></use>
                     </svg> Try CoreUI
                     <div class="fw-semibold">PRO</div>
-                </a></li>
+                </a></li> --}}
         </ul>
         <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
     </div>
@@ -269,8 +297,8 @@
                         height="46">
                 </a>
                 <ul class="header-nav ms-3">
-                    <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown"
-                            href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#"
+                            role="button" aria-haspopup="true" aria-expanded="false">
                             <div class="avatar avatar-md"><img class="avatar-img" src="assets/img/avatars/8.jpg"
                                     alt="user@email.com"></div>
                         </a>
