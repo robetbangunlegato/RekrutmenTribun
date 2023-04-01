@@ -21,7 +21,28 @@ class DaftarController extends Controller
         //
         $id_lamaran = Session::get('id');
         $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
-        return view('Daftar.index')->with('daftar',$lamaran_dipilih);
+
+        // ambil waktu buka
+        $waktu_bukaArr = Lamaran::where('id', $id_lamaran)->first('buka');
+        $waktu_buka = Carbon::parse($waktu_bukaArr['buka']);
+
+        // ambil waktu tutup
+        $waktu_tutupArr = Lamaran::where('id',$id_lamaran)->first('tutup');
+        $waktu_tutup = Carbon::parse($waktu_tutupArr['tutup']);
+
+        // ambil waktu saat ini
+        $waktu_sekarang = Carbon::now('Asia/Jakarta');
+        $waktu_sekarang_parse = Carbon::parse($waktu_sekarang);
+
+        // bandingkan waktu nya
+        // jika waktu sekarang sama atau melewati waktu buka dan tidak melebihi waktu tutup maka tampilkan form
+        if(strtotime($waktu_sekarang) >= strtotime($waktu_buka) && strtotime($waktu_sekarang) <= strtotime($waktu_tutup)){
+            return view('Daftar.index')->with('daftar',$lamaran_dipilih);
+        // kondisi selain di atas, maka form di tutup
+        }else{
+            return view('Daftar.tutup');
+        }
+        
         
     }
 
