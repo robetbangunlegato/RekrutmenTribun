@@ -16,6 +16,7 @@
         "postcss": "^8.1.14"
     },
     "dependencies": {
+        "flatpickr": "^4.6.13",
         "toastr": "^2.1.4"
     }
 }

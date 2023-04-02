@@ -25,6 +25,7 @@ class DaftarController extends Controller
         // ambil waktu buka
         $waktu_bukaArr = Lamaran::where('id', $id_lamaran)->first('buka');
         $waktu_buka = Carbon::parse($waktu_bukaArr['buka']);
+        
 
         // ambil waktu tutup
         $waktu_tutupArr = Lamaran::where('id',$id_lamaran)->first('tutup');
@@ -40,7 +41,7 @@ class DaftarController extends Controller
             return view('Daftar.index')->with('daftar',$lamaran_dipilih);
         // kondisi selain di atas, maka form di tutup
         }else{
-            return view('Daftar.tutup');
+            return view('Daftar.tutup')->with('id',$id_lamaran);
         }
         
         
@@ -98,8 +99,47 @@ class DaftarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //validasi input
+        $ValidasiData = $request->validate([
+            'tanggal_buka' => 'required',
+            'waktu_buka'=>'required',
+            'tanggal_tutup'=>'required',
+            'waktu_tutup'=>'required'
+        ]);
+
+        // ambil waktu buka
+        $tanggal_buka = $ValidasiData['tanggal_buka'];
+        $waktu_buka = $ValidasiData['waktu_buka'];
+        $buka_lamaran = Carbon::parse("$tanggal_buka $waktu_buka")->format('Y-m-d H:i:s');
+        
+        // ambil waktu tutup
+        $tanggal_tutup = $ValidasiData['tanggal_tutup'];
+        $waktu_tutup = $ValidasiData['waktu_tutup'];
+        $tutup_lamaran = Carbon::parse("$tanggal_tutup $waktu_tutup")->format('Y-m-d H:i:s');
+
+        // ambil waktu saat ini
+        $waktu_sekarang = Carbon::now('Asia/Jakarta');
+        $waktu_sekarang_parse = Carbon::parse($waktu_sekarang);
+
+        if(strtotime($buka_lamaran) >= strtotime($tutup_lamaran)){
+            $request->session()->flash('info','Waktu buka harus lebih dulu dari waktu tutup!');
+            return redirect()->route('daftar.index');
+        }else{
+            $waktu_lamaran = Lamaran::find($id);
+            $waktu_lamaran->buka = $buka_lamaran;
+            $waktu_lamaran->tutup = $tutup_lamaran;
+            $waktu_lamaran->update();
+            $request->session()->flash('info','Waktu telah di ubah!');
+            return redirect()->route('daftar.index');
+        }
+
+
+
+        
+        
+
     }
+        
 
     /**
      * Remove the specified resource from storage.

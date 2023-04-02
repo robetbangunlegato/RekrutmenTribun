@@ -78,8 +78,10 @@
             f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-KX4JH47');
     </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <link rel="icon" href="{{ asset('simbol_tribun.png') }}">
-    {{-- <link rel="stylesheet" href="custom.css"> --}}
+
 </head>
 
 <body>
