@@ -28,7 +28,7 @@
     <div class="container">
         <div class="row">
             @foreach ($lamarans as $item)
-                {{-- @dd($item->id) --}}
+                {{-- @dd($item->selisih) --}}
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                     <div class="card h-100">
                         <img src="{{ asset('storage/' . $item->foto) }}" class="card-img-top" alt="..." width="401px"

@@ -15,8 +15,8 @@ class AddBukaTutupFieldToLamaransTable extends Migration
     {
         Schema::table('lamarans', function (Blueprint $table) {
             //
-            $table->datetime('buka')->default('2023-04-01 00:00:00');
-            $table->datetime('tutup')->default('2023-10-01 00:00:00');
+            $table->datetime('buka')->default('1000-10-10 00:00:00');
+            $table->datetime('tutup')->default('1000-10-10 00:00:00');
         });
     }
 

@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use Carbon\carbon;
 use App\Models\Lamaran;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -90,7 +91,9 @@ class LamaranController extends Controller
     public function show($id)
     {
         //
-
+        if (!$id) {
+        return redirect()->back();
+    }else{
         // meengambil data yang dipilih (semua kolom)
         $data = Lamaran::findOrFail($id);
         // mengambil data id yang dipilih (kolom id saja)
@@ -99,6 +102,9 @@ class LamaranController extends Controller
         Session::put('id', $id);
         // memindahkan view ke halaman daftar index
         return redirect()->route('daftar.index');
+    }
+
+        
     }
 
     /**
