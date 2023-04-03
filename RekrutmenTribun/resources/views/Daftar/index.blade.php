@@ -7,7 +7,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                 <h1 class="text-center">Formulir Pendaftaran {{ $daftar->posisi }}</h1>
             </div>
-            <form action="" id="FormDataDaftar" method="post">
+            <form action="{{ route('daftar.store') }}" id="FormDataDaftar" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label for="" class="form-label">KTP</label>
@@ -29,6 +29,7 @@
                     <label for="" class="form-label">Data Pendukung</label>
                     <input type="file" value="" name="data_pendukung" class="form-control">
                 </div>
+                <input type="text" value="{{ $daftar->id }}" hidden id="id" name="id">
                 <div class="cotainer">
                     <div class="row">
                         <div class="container">
@@ -50,6 +51,7 @@
             </form>
         </div>
     </div>
+
 
     <script>
         var selisih = {{ $selisih }};

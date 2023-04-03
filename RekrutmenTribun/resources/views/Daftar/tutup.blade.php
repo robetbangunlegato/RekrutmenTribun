@@ -33,12 +33,8 @@
                             Sesi telah habis, silahkan tunggu rekrutmen berikutnya.
                         </div>
                         <div class="modal-footer">
-                            {{-- <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Close</button> --}}
                             <button type="button" class="btn btn-primary btn-tutup" data-coreui-dismiss="modal">Buka
                                 Formulir</button>
-                            {{-- <a href="http://" class="btn btn-primary" type="button" data-coreui-dismiss="modal">Buka
-                                Formulir</a> --}}
-                            {{-- <button type="button" class="btn btn-primary">Understood</button> --}}
                             <a href="{{ url('lamaran') }}" class="btn btn-secondary">Kembali</a>
                         </div>
                     </div>
@@ -73,7 +69,6 @@
                 </div>
             </div>
         </form>
-
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
