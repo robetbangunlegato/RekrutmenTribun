@@ -7,27 +7,27 @@
             <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                 <h1 class="text-center">Formulir Pendaftaran {{ $daftar->posisi }}</h1>
             </div>
-            <form action="{{ route('daftar.store') }}" id="FormDataDaftar" method="post" enctype="multipart/form-data">
+            <form action="{{ route('daftar.store') }}" id="FormDataDaftar" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label for="" class="form-label">KTP</label>
-                    <input type="file" value="" name="ktp" class="form-control">
+                    <input type="file" value="" id="ktp" name="ktp" class="form-control">
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label for="" class="form-label">NPWP</label>
-                    <input type="file" value="" name="npwp" class="form-control">
+                    <input type="file" value="" id="npwp" name="npwp" class="form-control">
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label for="" class="form-label">CV</label>
-                    <input type="file" value="" name="cv" class="form-control">
+                    <input type="file" value="" id="cv" name="cv" class="form-control">
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label for="" class="form-label">Lamaran</label>
-                    <input type="file" value="" name="lamaran" class="form-control">
+                    <input type="file" value="" id="lamaran" name="lamaran" class="form-control">
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label for="" class="form-label">Data Pendukung</label>
-                    <input type="file" value="" name="data_pendukung" class="form-control">
+                    <input type="file" value="" id="data_pendukung" name="data_pendukung" class="form-control">
                 </div>
                 <input type="text" value="{{ $daftar->id }}" hidden id="id" name="id">
                 <div class="cotainer">
@@ -51,7 +51,6 @@
             </form>
         </div>
     </div>
-
 
     <script>
         var selisih = {{ $selisih }};

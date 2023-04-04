@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\LamaranController;
+use App\Http\Controllers\DaftarController;
 use App\Models\Lamaran;
 use App\Models\Daftar;
 use Carbon\carbon;
@@ -17,14 +18,26 @@ class DaftarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $lamaranController;
+
+    public function __construct(LamaranController $lamaranController)
+    {
+        return $this->lamaranController = $lamaranController;
+    }
+    
     public function index(Request $request)
     {
         //
         $id_lamaran = Session::get('id');
-        $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
+        if($id_lamaran == null){
+            return $this->lamaranController->index();
 
+        }else{
+            $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
         // ambil waktu buka
         $waktu_bukaArr = Lamaran::where('id', $id_lamaran)->first('buka');
+        
         $waktu_buka = Carbon::parse($waktu_bukaArr['buka']);
         
 
@@ -48,6 +61,9 @@ class DaftarController extends Controller
         }else{
             return view('Daftar.tutup')->with('id',$id_lamaran);
         }
+        }
+        
+        
         
         
     }
@@ -70,78 +86,75 @@ class DaftarController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $ValidasiData = $request->validate([
-            'ktp' => 'required|file|max:800|mimes:JPG',
-            'npwp' => 'required|file|max:800|mimes:JPG',
-            'cv' => 'required|file|max:800|mimes:JPG',
-            'lamaran' => 'required|file|max:800|mimes:JPG',
-            'data_pendukung' => 'file|mimes:PDF|max:2000'
+        // 
+        // $ValidasiData = $request->validate([
+        //     'ktp' => 'required|file|image|max:800|mimes:JPG',
+        //     'npwp' => 'required|file|image|max:800|mimes:JPG',
+        //     'cv' => 'required|file|image|max:800|mimes:JPG',
+        //     'lamaran' => 'required|file|image|max:800|mimes:JPG',
+        //     'data_pendukung' => 'file|mimes:PDF|max:2000',
+        //     'id'=>'required'
 
-        ],[
-            'ktp.required' => 'File KTP harus di masukan!',
-            'ktp.file' => 'File KTP harus berupa file foto (JPG)!',
-            'ktp.max' => 'Ukuran maksimal 800KB!',
-            'ktp.mimes' => 'Foto harus berformat JPG',
-            'npwp.required' => 'File NPWP harus di masukan!',
-            'npwp.file' => 'File NPWP harus berupa file foto (JPG)!',
-            'npwp.max' => 'Ukuran maksimal 800KB!',
-            'npwp.mimes' => 'NPWP harus berformat JPG',
-            'cv.required' => 'File CV harus di masukan!',
-            'cv.file' => 'File CV harus berupa file foto (JPG)!',
-            'cv.max' => 'Ukuran maksimal 800KB!',
-            'cv.mimes' => 'CV harus berformat JPG',
-            'lamaran.required' => 'File lamaran harus di masukan!',
-            'lamaran.file' => 'File lamaran harus berupa file foto (JPG)!',
-            'lamaran.max' => 'Ukuran maksimal 800KB!',
-            'lamaran.mimes' => 'Lamaran harus berformat JPG',
-            'data_pendukung.file' => 'File data pendukung harus berupa file PDF!',
-            'data_pendukung.max' => 'Ukuran maksimal 2MB!',
-            'data_pendukung.mimes' => 'Data pendukung harus berformat PDF'
-        ]);
+        // ],[
+        //     'ktp.required' => 'File KTP harus di masukan!',
+        //     'ktp.file' => 'File KTP harus berupa file foto (JPG)!',
+        //     'ktp.max' => 'Ukuran maksimal 800KB!',
+        //     'ktp.mimes' => 'Foto harus berformat JPG',
+        //     'npwp.required' => 'File NPWP harus di masukan!',
+        //     'npwp.file' => 'File NPWP harus berupa file foto (JPG)!',
+        //     'npwp.max' => 'Ukuran maksimal 800KB!',
+        //     'npwp.mimes' => 'NPWP harus berformat JPG',
+        //     'cv.required' => 'File CV harus di masukan!',
+        //     'cv.file' => 'File CV harus berupa file foto (JPG)!',
+        //     'cv.max' => 'Ukuran maksimal 800KB!',
+        //     'cv.mimes' => 'CV harus berformat JPG',
+        //     'lamaran.required' => 'File lamaran harus di masukan!',
+        //     'lamaran.file' => 'File lamaran harus berupa file foto (JPG)!',
+        //     'lamaran.max' => 'Ukuran maksimal 800KB!',
+        //     'lamaran.mimes' => 'Lamaran harus berformat JPG',
+        //     'data_pendukung.file' => 'File data pendukung harus berupa file PDF!',
+        //     'data_pendukung.max' => 'Ukuran maksimal 2MB!',
+        //     'data_pendukung.mimes' => 'Data pendukung harus berformat PDF'
+        // ]);
 
         // ktp
-        $ktp = "ktp-".time().".".".jpg";
-        $kirim_ktp = $request->ktp->storeAs($ktp);
+        $ktp = "ktp-".time().".jpg";
+        $nama_ktp = $request->ktp->storeAs('public/daftar',$ktp);
 
         // npwp
-        $npwp = "npwp-".time().".".".jpg";
-        $kirim_npwp = $request->npwp->storeAs($npwp);
+        $npwp = "npwp-".time().".jpg";
+        $nama_npwp = $request->npwp->storeAs('public/daftar',$npwp);
 
         // cv
-        $cv = "cv-".time().".".".jpg";
-        $kirim_cv = $request->cv->storeAs($cv);
+        $cv = "cv-".time().".jpg";
+        $nama_cv = $request->cv->storeAs('public/daftar',$cv);
 
         // lamaran
-        $lamaran = "lamaran-".time().".".".jpg";
-        $kirim_lamaran = $request->lamaran->storeAs($lamaran);
+        $lamaran = "lamaran-".time().".jpg";
+        $nama_lamaran = $request->lamaran->storeAs('public/daftar',$lamaran);
 
         // data_pendukung
-        $data_pendukung = "data_pendukung-".time().".".".pdf";
-        $kirim_data_pendukung = $request->data_pendukung->storeAs($data_pendukung);
+        $data_pendukung = "data_pendukung-".time().".pdf";
+        $nama_data_pendukung = $request->data_pendukung->storeAs('public/daftar',$data_pendukung);
 
-        $daftar = new Daftar();
-        $daftar->ktp = $ValidasiData['ktp'];
-        $daftar->npwp = $ValidasiData['npwp'];
-        $daftar->cv = $ValidasiData['cv'];
-        $daftar->lamaran = $ValidasiData['lamaran'];
-        $daftar->data_pendukung = $ValidasiData['data_pendukung'];
-        $daftar->lamaran_id = $request->id;
+        $daftars = new Daftar();
+        $daftars->lamaran_id = 2;
+        $daftars->ktp = $nama_ktp;
+        $daftars->npwp = $nama_npwp;
+        $daftars->cv = $nama_cv;
+        $daftars->lamaran = $nama_lamaran;
+        $daftars->data_pendukung = $nama_data_pendukung;
 
-        dd($daftar);
-        // $daftar->save();
+        $daftars->save();
 
-        if($daftar->exist()){
+        if($daftars->exists()){
             $request->session()->flash('info', 'Data berkas rekrutmen berhasil di kirim, tunggu di respon oleh HRD!');
             return view('Daftar.rekap');
         }else{
             $request->session()->flash('info','Data berkas rekrutmen gagal di kirim, silahkan di kirim ulang');
-            return redirect()->route('Daftar.index');
+            // dd('gagal');
+            // return redirect()->route('Daftar.index');
         }
-
-
-
-
     }
 
     /**

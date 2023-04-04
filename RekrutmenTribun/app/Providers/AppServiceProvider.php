@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use App\Htpp\Controllers\LamaranController;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -14,6 +14,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->bind('LamaranController', function ($app) {
+            return new LamaranController();
+        });
     }
 
     /**
