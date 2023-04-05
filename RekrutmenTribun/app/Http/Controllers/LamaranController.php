@@ -48,7 +48,7 @@ class LamaranController extends Controller
         ],[
             'foto.mimes' => 'Format gambar harus JPG/jpeg!',
             'foto.max' => 'Ukuran maksimal 800KB!',
-            'required' => 'Foto thumbnail harus di isi!'
+            'foto.required' => 'Foto thumbnail harus di isi!'
         ]);
 
         // -----alur data file foto-----

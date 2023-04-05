@@ -87,35 +87,39 @@ class DaftarController extends Controller
     public function store(Request $request)
     {
         // 
-        // $ValidasiData = $request->validate([
-        //     'ktp' => 'required|file|image|max:800|mimes:JPG',
-        //     'npwp' => 'required|file|image|max:800|mimes:JPG',
-        //     'cv' => 'required|file|image|max:800|mimes:JPG',
-        //     'lamaran' => 'required|file|image|max:800|mimes:JPG',
-        //     'data_pendukung' => 'file|mimes:PDF|max:2000',
-        //     'id'=>'required'
+        $ValidasiData = $request->validate([
+            'ktp' => 'required|file|image|max:800|mimes:JPG',
+            'npwp' => 'required|file|image|max:800|mimes:JPG',
+            'cv' => 'required|file|image|max:800|mimes:JPG',
+            'lamaran' => 'required|file|image|max:800|mimes:JPG',
+            'data_pendukung' => 'file|mimes:PDF|max:2000',
+            'id'=>'required'
 
-        // ],[
-        //     'ktp.required' => 'File KTP harus di masukan!',
-        //     'ktp.file' => 'File KTP harus berupa file foto (JPG)!',
-        //     'ktp.max' => 'Ukuran maksimal 800KB!',
-        //     'ktp.mimes' => 'Foto harus berformat JPG',
-        //     'npwp.required' => 'File NPWP harus di masukan!',
-        //     'npwp.file' => 'File NPWP harus berupa file foto (JPG)!',
-        //     'npwp.max' => 'Ukuran maksimal 800KB!',
-        //     'npwp.mimes' => 'NPWP harus berformat JPG',
-        //     'cv.required' => 'File CV harus di masukan!',
-        //     'cv.file' => 'File CV harus berupa file foto (JPG)!',
-        //     'cv.max' => 'Ukuran maksimal 800KB!',
-        //     'cv.mimes' => 'CV harus berformat JPG',
-        //     'lamaran.required' => 'File lamaran harus di masukan!',
-        //     'lamaran.file' => 'File lamaran harus berupa file foto (JPG)!',
-        //     'lamaran.max' => 'Ukuran maksimal 800KB!',
-        //     'lamaran.mimes' => 'Lamaran harus berformat JPG',
-        //     'data_pendukung.file' => 'File data pendukung harus berupa file PDF!',
-        //     'data_pendukung.max' => 'Ukuran maksimal 2MB!',
-        //     'data_pendukung.mimes' => 'Data pendukung harus berformat PDF'
-        // ]);
+        ],[
+            'ktp.required' => 'File KTP harus di masukan!',
+            'ktp.file' => 'File KTP harus berupa file foto (JPG)!',
+            'ktp.max' => 'Ukuran maksimal 800KB!',
+            'ktp.mimes' => 'Foto harus berformat JPG',
+            'ktp.image' => 'File yang dimaskan harus berupa gambar!',
+            'npwp.required' => 'File NPWP harus di masukan!',
+            'npwp.file' => 'File NPWP harus berupa file foto (JPG)!',
+            'npwp.max' => 'Ukuran maksimal 800KB!',
+            'npwp.image' => 'File yang dimaskan harus berupa gambar!',
+            'npwp.mimes' => 'NPWP harus berformat JPG',
+            'cv.required' => 'File CV harus di masukan!',
+            'cv.file' => 'File CV harus berupa file foto (JPG)!',
+            'cv.image' => 'File yang dimaskan harus berupa gambar!',
+            'cv.max' => 'Ukuran maksimal 800KB!',
+            'cv.mimes' => 'CV harus berformat JPG',
+            'lamaran.required' => 'File lamaran harus di masukan!',
+            'lamaran.file' => 'File lamaran harus berupa file foto (JPG)!',
+            'lamaran.image' => 'File yang dimaskan harus berupa gambar!',
+            'lamaran.max' => 'Ukuran maksimal 800KB!',
+            'lamaran.mimes' => 'Lamaran harus berformat JPG',
+            'data_pendukung.file' => 'File data pendukung harus berupa file PDF!',
+            'data_pendukung.max' => 'Ukuran maksimal 2MB!',
+            'data_pendukung.mimes' => 'Data pendukung harus berformat PDF'
+        ]);
 
         // ktp
         $ktp = "ktp-".time().".jpg";
