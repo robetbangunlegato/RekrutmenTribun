@@ -50,13 +50,13 @@ class DaftarController extends Controller
         $waktu_sekarang_parse = Carbon::parse($waktu_sekarang);
 
         // mencari selisih
-        $selisih = $waktu_buka->diffInMilliseconds($waktu_tutup);
-        // dd($selisih);
+        // $selisih = $waktu_buka->diffInMilliseconds($waktu_tutup);
+
 
         // bandingkan waktu nya
         // jika waktu sekarang sama atau melewati waktu buka dan tidak melebihi waktu tutup maka tampilkan form
         if(strtotime($waktu_sekarang) >= strtotime($waktu_buka) && strtotime($waktu_sekarang) <= strtotime($waktu_tutup)){
-            return view('Daftar.index')->with('daftar',$lamaran_dipilih)->with('selisih',$selisih);
+            return view('Daftar.index')->with('daftar',$lamaran_dipilih)->with('waktu_tutup',$waktu_tutup);
         // kondisi selain di atas, maka form di tutup
         }else{
             return view('Daftar.tutup')->with('id',$id_lamaran);

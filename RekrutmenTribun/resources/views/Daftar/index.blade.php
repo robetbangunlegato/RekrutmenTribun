@@ -1,6 +1,5 @@
 @extends('Navbar.index')
 @section('content')
-    <meta http-equiv="refresh" content="{{ $selisih }}">
     <div class="container">
         <div class="row">
             {{-- @dd($selisih) --}}
@@ -8,7 +7,7 @@
                 <h1 class="text-center">Formulir Pendaftaran {{ $daftar->posisi }}</h1>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <p class="text-center text-muted">Ditutup ... hari ... jam ... detik Lagi</p>
+                <p class="text-center text-muted" id="waktu_sisa"></p>
             </div>
             <form action="{{ route('daftar.store') }}" id="FormDataDaftar" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -83,9 +82,45 @@
     </div>
 
     <script>
-        var selisih = {{ $selisih }};
-        setTimeout(function() {
-            location.reload();
-        }, selisih);
+        var waktu_tutup = new Date('{{ $waktu_tutup }}');
+        var sekarang = new Date();
+
+        var periksa = setInterval(function() {
+            var sekarang = new Date();
+
+            if (sekarang >= waktu_tutup) {
+                location.reload();
+                clearInterval(periksa);
+            }
+
+        }, 1000);
+
+        function tampilsisa() {
+            var waktu_tutup = new Date('{{ $waktu_tutup }}');
+            var sekarang = new Date();
+            // menghitung selisih waktu dalam milisecond
+            var diffInMs = waktu_tutup.getTime() - sekarang.getTime();
+
+            // menghitung selisih waktu dalam hari
+            var diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+            diffInMs -= diffInDays * 1000 * 60 * 60 * 24;
+
+            // menghitung selisih waktu dalam jam
+            var diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+            diffInMs -= diffInHours * 1000 * 60 * 60;
+
+            // menghitung selisih waktu dalam menit
+            var diffInMin = Math.floor(diffInMs / (1000 * 60));
+
+            // console.log('form akan di tutup ' + diffInDays + ' hari ' + diffInHours + ' jam ' + diffInMin + ' menit lagi');
+            document.getElementById('waktu_sisa').innerHTML = 'form akan di tutup dalam waktu ' + diffInDays + ' hari ' +
+                diffInHours +
+                ' jam ' + diffInMin + ' menit lagi '
+        }
+
+        window.onload = function() {
+            tampilsisa();
+            setInterval(tampilsisa, 60000);
+        }
     </script>
 @endsection
