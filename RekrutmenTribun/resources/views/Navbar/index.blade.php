@@ -114,6 +114,13 @@
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-home"></use>
                     </svg>Lamaran</a>
             </li>
+            <form action="{{ route('daftar.showadmin') }}" method="post">
+                <li class="nav-item"><a class="nav-link" type="submit">
+                        <svg class="nav-icon">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-indent-decrease"></use>
+                        </svg>Rekap Admin</a>
+                </li>
+            </form>
             <li class="nav-item"><a class="nav-link" href="index.html">
                     <svg class="nav-icon">
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-voice-over-record"></use>
@@ -129,6 +136,10 @@
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-align-center"></use>
                     </svg>Pengumuman Akhir</a>
             </li>
+
+
+
+
             {{-- <li class="nav-title">Theme</li> --}}
             {{-- 
             <li class="nav-item"><a class="nav-link" href="colors.html">
@@ -299,8 +310,8 @@
                         height="46">
                 </a>
                 <ul class="header-nav ms-3">
-                    <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#"
-                            role="button" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown"
+                            href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             <div class="avatar avatar-md"><img class="avatar-img" src="{{ asset('robet.png') }}"
                                     alt="user@email.com"></div>
                         </a>

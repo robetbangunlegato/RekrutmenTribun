@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\LamaranController;
-use  App\Http\Controllers\LandingController;
+use App\Http\Controllers\LandingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +22,6 @@ Route::get('/', function () {
 Route::resource('lamaran', LamaranController::class);
 Route::resource('daftar', DaftarController::class);
 Route::get('/lamaran/{id}', 'LamaranController@show')->name('lamaran.show');
-
+Route::post('/daftar.showadmin', [DaftarController::class, 'showadmin'])->name('daftar.showadmin');
 
 

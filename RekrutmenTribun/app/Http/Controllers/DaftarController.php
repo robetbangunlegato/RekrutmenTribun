@@ -170,6 +170,11 @@ class DaftarController extends Controller
     public function show($id)
     {
         //
+
+    }
+
+    public function showadmin(){
+        return view ('Daftar.rekapadmin');
     }
 
     /**

@@ -100,6 +100,7 @@
             var sekarang = new Date();
             // menghitung selisih waktu dalam milisecond
             var diffInMs = waktu_tutup.getTime() - sekarang.getTime();
+            console.log(diffInMs);
 
             // menghitung selisih waktu dalam hari
             var diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
@@ -111,6 +112,9 @@
 
             // menghitung selisih waktu dalam menit
             var diffInMin = Math.floor(diffInMs / (1000 * 60));
+
+            // menghitung selisih waktu dalam detik
+            var diffInSec = Math.floor()
 
             // console.log('form akan di tutup ' + diffInDays + ' hari ' + diffInHours + ' jam ' + diffInMin + ' menit lagi');
             document.getElementById('waktu_sisa').innerHTML = 'form akan di tutup dalam waktu ' + diffInDays + ' hari ' +
