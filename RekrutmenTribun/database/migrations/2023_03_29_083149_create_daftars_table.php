@@ -20,8 +20,8 @@ class CreateDaftarsTable extends Migration
             $table->string('npwp');
             $table->string('cv');
             $table->string('lamaran');
-            $table->string('data_pendukung')->default('tidak ada data pendukung');
-            $table->string('status')->default('Belum di respon');
+            $table->string('data_pendukung')->default('-');
+            $table->string('status')->default('-');
             
         });
     }

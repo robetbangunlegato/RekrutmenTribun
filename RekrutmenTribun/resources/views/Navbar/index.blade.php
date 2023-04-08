@@ -114,13 +114,11 @@
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-home"></use>
                     </svg>Lamaran</a>
             </li>
-            <form action="{{ route('daftar.showadmin') }}" method="post">
-                <li class="nav-item"><a class="nav-link" type="submit">
-                        <svg class="nav-icon">
-                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-indent-decrease"></use>
-                        </svg>Rekap Admin</a>
-                </li>
-            </form>
+            <li class="nav-item"><a class="nav-link" href="{{ url('rekapitulasiadministrasi') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-indent-decrease"></use>
+                    </svg>Rekapitulasi Administrasi</a>
+            </li>
             <li class="nav-item"><a class="nav-link" href="index.html">
                     <svg class="nav-icon">
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-voice-over-record"></use>
@@ -136,10 +134,6 @@
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-align-center"></use>
                     </svg>Pengumuman Akhir</a>
             </li>
-
-
-
-
             {{-- <li class="nav-title">Theme</li> --}}
             {{-- 
             <li class="nav-item"><a class="nav-link" href="colors.html">

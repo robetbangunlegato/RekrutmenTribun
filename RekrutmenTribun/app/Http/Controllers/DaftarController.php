@@ -174,7 +174,8 @@ class DaftarController extends Controller
     }
 
     public function showadmin(){
-        return view ('Daftar.rekapadmin');
+        $daftars = Daftar::all();
+        return view ('Daftar.rekapadmin')->with('daftars', $daftars);
     }
 
     /**
