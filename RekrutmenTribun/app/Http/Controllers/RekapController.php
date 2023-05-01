@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use App\Models\Daftar;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class RekapController extends Controller
 {
     /**
@@ -14,9 +17,42 @@ class RekapController extends Controller
     public function index()
     {
         //
-        $daftars = Daftar::all();
-        return view('Daftar.rekapadmin')->with('daftars',$daftars);
-    }
+        $user_role = Auth::user()->role;
+        
+        
+        if($user_role == 'non-admin'){
+            $user = Auth::user()->id;
+            // $roles = Auth::user()->rule;
+            // dd($user_rule);
+            
+            $daftars = DB::table('daftars')
+            ->select('daftars.*','lamarans.posisi')
+            ->join('users','users.id','=','daftars.user_id')
+            ->join('lamarans', 'daftars.lamaran_id','=','lamarans.id')
+            ->where('user_id',$user)
+            ->get();
+
+
+            if(count($daftars) < 1){
+                $daftars = 'Tidak ada data';
+                return view('Daftar.rekapadmin')->with('daftars',$daftars)->with('role',$user_role);
+            }else{
+                // dd($user_rule);
+                return view('Daftar.rekapadmin')->with('daftars',$daftars)->with('role',$user_role); 
+            }            
+            
+
+        }elseif($user_role == 'admin'){
+            $daftars = Daftar::all();
+            if(count($daftars) < 1){
+                $daftars = 'Tidak ada data';
+            }
+            return view('Daftar.rekapadmin')->with('daftars',$daftars)->with('role',$user_role);
+        
+
+        }
+        
+    }   
 
     /**
      * Show the form for creating a new resource.
@@ -71,6 +107,12 @@ class RekapController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $update_status_administrasi = $request->input('status_administrasi');
+        $daftar = Daftar::find($id);
+        $daftar->status_administrasi = $update_status_administrasi;
+        $daftar->update();
+        
+        return redirect()->action([RekapController::class,'index']);
     }
 
     /**

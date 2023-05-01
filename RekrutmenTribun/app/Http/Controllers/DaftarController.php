@@ -8,7 +8,9 @@ use App\Http\Controllers\DaftarController;
 use App\Models\Lamaran;
 use App\Models\Daftar;
 use Carbon\carbon;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class DaftarController extends Controller
@@ -86,13 +88,15 @@ class DaftarController extends Controller
      */
     public function store(Request $request)
     {
-        // 
+        // waktu upload
+        $waktu_upload = Carbon::now()->locale('id')->isoFormat('D MMMM Y');
+
         $ValidasiData = $request->validate([
-            'ktp' => 'required|file|image|max:800|mimes:JPG',
-            'npwp' => 'required|file|image|max:800|mimes:JPG',
-            'cv' => 'required|file|image|max:800|mimes:JPG',
-            'lamaran' => 'required|file|image|max:800|mimes:JPG',
-            'data_pendukung' => 'file|mimes:PDF|max:2000',
+            'ktp' => 'required|file|image|max:800|mimes:JPG,jpeg',
+            'npwp' => 'required|file|image|max:800|mimes:JPG,jpeg',
+            'cv' => 'required|file|image|max:800|mimes:JPG,jpeg',
+            'lamaran' => 'required|file|image|max:800|mimes:JPG,jpeg',
+            'data_pendukung' => 'file|mimes:PDF,pdf|max:2000',
             'id'=>'required'
 
         ],[
@@ -134,30 +138,36 @@ class DaftarController extends Controller
         $nama_cv = $request->cv->storeAs('public/daftar',$cv);
 
         // lamaran
-        $lamaran = "lamaran-".time().".jpg";
+        $lamaran = "surat_lamaran-".time().".jpg";
         $nama_lamaran = $request->lamaran->storeAs('public/daftar',$lamaran);
 
+        
         // data_pendukung
-        $data_pendukung = "data_pendukung-".time().".pdf";
-        $nama_data_pendukung = $request->data_pendukung->storeAs('public/daftar',$data_pendukung);
+        $data_pendukung = '-';
+        if($request->hasFile('data_pendukung')){
+            $data_pendukung = "data_pendukung-".time().".pdf";
+            $nama_data_pendukung = $request->data_pendukung->storeAs('public/daftar',$data_pendukung);
+        }
 
         $daftars = new Daftar();
-        $daftars->lamaran_id = 2;
-        $daftars->ktp = $nama_ktp;
-        $daftars->npwp = $nama_npwp;
-        $daftars->cv = $nama_cv;
-        $daftars->lamaran = $nama_lamaran;
-        $daftars->data_pendukung = $nama_data_pendukung;
+        $daftars->user_id = Auth::user()->id;
+        $daftars->lamaran_id = $ValidasiData['id'];
+        $daftars->ktp = $ktp;
+        $daftars->npwp = $npwp;
+        $daftars->cv = $cv;
+        $daftars->surat_lamaran = $lamaran;
+        $daftars->data_pendukung = $data_pendukung;
+        $daftars->waktu_kirim = $waktu_upload;
 
         $daftars->save();
 
         if($daftars->exists()){
             $request->session()->flash('info', 'Data berkas rekrutmen berhasil di kirim, tunggu di respon oleh HRD!');
-            return view('Daftar.rekap');
+            return view('Daftar.rekapadmin');
         }else{
             $request->session()->flash('info','Data berkas rekrutmen gagal di kirim, silahkan di kirim ulang');
             // dd('gagal');
-            // return redirect()->route('Daftar.index');
+            return redirect()->route('Daftar.index');
         }
     }
 

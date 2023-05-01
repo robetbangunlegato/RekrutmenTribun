@@ -5,6 +5,9 @@ use App\Http\Controllers\RekapController;
 use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\PsikotesController;
+use App\Http\Controllers\WawancaraController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,13 +20,19 @@ use App\Http\Controllers\LandingController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth\login');
 });
 
-Route::resource('lamaran', LamaranController::class);
-Route::resource('daftar', DaftarController::class);
-Route::resource('rekapitulasiadministrasi',RekapController::class);
-Route::get('/lamaran/{id}', 'LamaranController@show')->name('lamaran.show');
-Route::post('daftar.showadmin', [DaftarController::class, 'showadmin'])->name('daftar.showadmin');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
+Route::resource('lamaran', LamaranController::class)->middleware(['auth']);
+Route::resource('daftar', DaftarController::class)->middleware(['auth']);
+Route::resource('rekapitulasiadministrasi',RekapController::class)->middleware(['auth']);
+Route::get('/lamaran/{id}', 'LamaranController@show')->name('lamaran.show')->middleware(['auth']);
+Route::post('daftar.showadmin', [DaftarController::class, 'showadmin'])->name('daftar.showadmin')->middleware(['auth']);
+Route::resource('wawancara', WawancaraController::class)->middleware(['auth']);
+Route::resource('psikotes',PsikotesController::class)->middleware(['auth']);
 
+require __DIR__.'/auth.php';

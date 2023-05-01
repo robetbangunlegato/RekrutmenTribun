@@ -19,10 +19,12 @@ class CreateDaftarsTable extends Migration
             $table->string('ktp');
             $table->string('npwp');
             $table->string('cv');
-            $table->string('lamaran');
+            $table->string('surat_lamaran');
             $table->string('data_pendukung')->default('-');
-            $table->string('status')->default('-');
-            
+            $table->string('status_administrasi')->default('-');
+            $table->string('status_wawancara')->default('-');
+            $table->string('status_psikotes')->default('-');
+            $table->string('waktu_kirim');            
         });
     }
 

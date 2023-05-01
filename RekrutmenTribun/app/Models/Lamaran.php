@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Lamaran extends Model
 {
     public function lamarans(){
+        
     }
     use HasFactory;
 }

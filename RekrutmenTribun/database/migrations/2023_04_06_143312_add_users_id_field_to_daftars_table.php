@@ -15,7 +15,7 @@ class AddUsersIdFieldToDaftarsTable extends Migration
     {
         Schema::table('daftars', function (Blueprint $table) {
             //
-            $table->foreignId('users_id')->after('lamaran_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->after('lamaran_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

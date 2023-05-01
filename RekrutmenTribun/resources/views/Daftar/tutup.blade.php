@@ -33,8 +33,11 @@
                             Sesi telah habis, silahkan tunggu rekrutmen berikutnya.
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary btn-tutup" data-coreui-dismiss="modal">Buka
-                                Formulir</button>
+                            @if (auth()->user()->role == 'admin')
+                                <button type="button" class="btn btn-primary btn-tutup" data-coreui-dismiss="modal">Buka
+                                    Formulir</button>
+                            @endif
+
                             <a href="{{ url('lamaran') }}" class="btn btn-secondary">Kembali</a>
                         </div>
                     </div>
