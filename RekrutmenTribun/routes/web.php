@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\DaftarController;
+use App\Http\Controllers\KirimWAController;
 use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PsikotesController;
@@ -34,5 +35,5 @@ Route::get('/lamaran/{id}', 'LamaranController@show')->name('lamaran.show')->mid
 Route::post('daftar.showadmin', [DaftarController::class, 'showadmin'])->name('daftar.showadmin')->middleware(['auth']);
 Route::resource('wawancara', WawancaraController::class)->middleware(['auth']);
 Route::resource('psikotes',PsikotesController::class)->middleware(['auth']);
-
+Route::resource('whatsApp',KirimWAController::class);
 require __DIR__.'/auth.php';

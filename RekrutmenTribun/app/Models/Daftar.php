@@ -13,5 +13,8 @@ class Daftar extends Model
     public function lamaran(){
         return $this->belongsTo('App\Models\Lamaran');
     }
+    public function wawancara(){
+        return $this->hasOne('App\Models\Wawancara');
+    }
     use HasFactory;
 }

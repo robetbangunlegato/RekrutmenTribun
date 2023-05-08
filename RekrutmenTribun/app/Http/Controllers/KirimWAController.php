@@ -1,14 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Twilio\Rest\Client;
 use Illuminate\Http\Request;
-use App\Models\Daftar;
-use App\Models\Wawancara;
-use Illuminate\Support\Facades\DB;
-use Carbon\carbon;
 
-class WawancaraController extends Controller
+class KirimWAController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +14,20 @@ class WawancaraController extends Controller
     public function index()
     {
         //
-        $daftars = Daftar::all();
-        $waktu = DB::table('wawancaras')
-        ->select('waktu')
-        ->get();
-        return view('Wawancara.index')->with('daftars',$daftars)->with('waktu',$waktu);
+        $sid = getenv("TWILIO_ACCOUNT_SID");
+        $token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio = new Client($sid, $token);
+
+        $message = $twilio->messages
+        ->create("whatsapp:+628153857185", // to
+                           [
+                               "from" => "whatsapp:+13204348366",
+                               "body" => "Hello, there!"
+                           ]
+                  );
+
+        print($message->sid);
+        // return view('kirimWA.index');
     }
 
     /**
@@ -44,24 +49,7 @@ class WawancaraController extends Controller
     public function store(Request $request)
     {
         //
-        $ValidasiData = $request->validate([
-            'id_kirim' => 'required',
-            'tanggal' => 'required',
-            'waktu' => 'required'
-        ]);
-
-        // ambil tanggal dan waktu
-        $tanggal = $ValidasiData['tanggal'];
-        $waktu = $ValidasiData['waktu'];
-        $tanggal_waktu = Carbon::parse("$tanggal $waktu")->format('Y-m-d H:i:s');
-
-        $wawancaras = new Wawancara();
-        $wawancaras->waktu = $tanggal_waktu;
-        $wawancaras->daftar_id = $ValidasiData['id_kirim'];
-        $wawancaras->save();
-
-        $daftars = Daftar::all();
-        return view('Wawancara.index')->with('daftars',$daftars);        
+        
     }
 
     /**

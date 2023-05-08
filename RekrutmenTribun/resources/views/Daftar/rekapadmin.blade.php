@@ -1,11 +1,11 @@
 @extends('Navbar.index')
 @section('content')
     <div class="container">
-        <div class="container">
-            <div class="row mb-3 text-center">
-                <table class="table table-hover border-dark">
-                    <thead class="border-dark">
-                        <tr>
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table border table-hover">
+                    <thead class="table-light fw-semibold">
+                        <tr class="align-middle">
                             <th scope="col">No</th>
                             @if (auth()->user()->role == 'admin')
                                 <th scope="col">Nama</th>
@@ -113,7 +113,7 @@
                                                     @method('PATCH')
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{ $item->id }}">
-                                                    <button class="btn btn-success" type="submit"
+                                                    <button class="btn btn-success" type="submit" id="btn-wa"
                                                         name="status_administrasi" value="diterima">
                                                         <i class="bi bi-check-circle">
                                                         </i>
@@ -131,8 +131,8 @@
                         @endif
                     </tbody>
                 </table>
-
-
             </div>
+
         </div>
-    @endsection
+    </div>
+@endsection

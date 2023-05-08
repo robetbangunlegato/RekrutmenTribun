@@ -10,7 +10,7 @@
 <html lang="en">
 
 <head>
-    <base href="./">
+    {{-- <base href="./"> --}}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -101,7 +101,7 @@
             <li class="nav-item"><a class="nav-link" href="{{ url('rekapitulasiadministrasi') }}">
                     <svg class="nav-icon">
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-indent-decrease"></use>
-                    </svg>Rekapitulasi Administrasi</a>
+                    </svg>Administrasi</a>
             </li>
             <li class="nav-item"><a class="nav-link" href="{{ url('wawancara') }}">
                     <svg class="nav-icon">
@@ -180,7 +180,7 @@
                     </li>
                 </ul>
             </div>
-        </header>.
+        </header>
 
         {{-- konten --}}
         <div class="content-wrapper">

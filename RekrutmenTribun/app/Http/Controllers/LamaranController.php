@@ -41,7 +41,7 @@ class LamaranController extends Controller
     public function store(Request $request)
     {
 
-        $this->authorize('create',Lamaran::class);
+        // $this->authorize('create',Lamaran::class);
         // melakukan validasi input
         $ValidasiData = $request->validate([
             'posisi' => 'required',

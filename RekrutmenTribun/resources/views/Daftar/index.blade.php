@@ -121,7 +121,8 @@
             var diffInSec = Math.floor()
 
             // console.log('form akan di tutup ' + diffInDays + ' hari ' + diffInHours + ' jam ' + diffInMin + ' menit lagi');
-            document.getElementById('waktu_sisa').innerHTML = 'form akan di tutup dalam waktu ' + diffInDays + ' hari ' +
+            document.getElementById('waktu_sisa').innerHTML = 'formulir akan di tutup dalam waktu ' + diffInDays +
+                ' hari ' +
                 diffInHours +
                 ' jam ' + diffInMin + ' menit lagi '
         }

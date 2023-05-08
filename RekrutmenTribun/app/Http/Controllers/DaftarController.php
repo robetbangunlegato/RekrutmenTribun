@@ -36,38 +36,81 @@ class DaftarController extends Controller
             return $this->lamaranController->index();
 
         }else{
-            $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
-        // ambil waktu buka
-        $waktu_bukaArr = Lamaran::where('id', $id_lamaran)->first('buka');
-        
-        $waktu_buka = Carbon::parse($waktu_bukaArr['buka']);
-        
+            // cek apakah sudah pernah isi data
+            // ambil user id
+            $userId = auth()->user()->id;
+            $daftars = Daftar::where('user_id',$userId)->first();
 
-        // ambil waktu tutup
-        $waktu_tutupArr = Lamaran::where('id',$id_lamaran)->first('tutup');
-        $waktu_tutup = Carbon::parse($waktu_tutupArr['tutup']);
+            // jika sudah ada data
+            if($daftars){
 
-        // ambil waktu saat ini
-        $waktu_sekarang = Carbon::now('Asia/Jakarta');
-        $waktu_sekarang_parse = Carbon::parse($waktu_sekarang);
+                $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
+                // ambil waktu buka
+                $waktu_bukaArr = Lamaran::where('id', $id_lamaran)->first('buka');
+                $waktu_buka = Carbon::parse($waktu_bukaArr['buka']);
 
-        // mencari selisih
-        // $selisih = $waktu_buka->diffInMilliseconds($waktu_tutup);
+                // ambil waktu tutup
+                $waktu_tutupArr = Lamaran::where('id',$id_lamaran)->first('tutup');
+                $waktu_tutup = Carbon::parse($waktu_tutupArr['tutup']);
 
+                // waktu input terbaru user
+                $waktu_input_terbaru_nonparse = Daftar::where('user_id',$userId)->latest()->value('waktu_kirim');
+                $waktu_input_terbaru = Carbon::parse($waktu_input_terbaru_nonparse);
 
-        // bandingkan waktu nya
-        // jika waktu sekarang sama atau melewati waktu buka dan tidak melebihi waktu tutup maka tampilkan form
-        if(strtotime($waktu_sekarang) >= strtotime($waktu_buka) && strtotime($waktu_sekarang) <= strtotime($waktu_tutup)){
-            return view('Daftar.index')->with('daftar',$lamaran_dipilih)->with('waktu_tutup',$waktu_tutup);
-        // kondisi selain di atas, maka form di tutup
-        }else{
-            return view('Daftar.tutup')->with('id',$id_lamaran);
+                if(strtotime($waktu_input_terbaru) >= strtotime($waktu_buka) && strtotime($waktu_input_terbaru) <= strtotime($waktu_tutup)){
+                    $lamaran = Lamaran::all();
+                    $request->session()->flash('info', 'Kamu hanya dapat mengirimkan 1 formulir lamaran dalam 1 kali sesi rekrutmen!');
+                    return view('Lamaran.index')->with('lamarans',$lamaran);
+                }else{
+                    $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
+                    // ambil waktu buka
+                    $waktu_bukaArr = Lamaran::where('id', $id_lamaran)->first('buka');
+                    $waktu_buka = Carbon::parse($waktu_bukaArr['buka']);
+
+                    // ambil waktu tutup
+                    $waktu_tutupArr = Lamaran::where('id',$id_lamaran)->first('tutup');
+                    $waktu_tutup = Carbon::parse($waktu_tutupArr['tutup']);
+
+                    // ambil waktu saat ini
+                    $waktu_sekarang = Carbon::now('Asia/Jakarta');
+                    $waktu_sekarang_parse = Carbon::parse($waktu_sekarang);
+
+                    // bandingkan waktu nya
+                    // jika waktu sekarang sama atau melewati waktu buka dan tidak melebihi waktu tutup maka tampilkan form
+                    if(strtotime($waktu_sekarang) >= strtotime($waktu_buka) && strtotime($waktu_sekarang) <= strtotime($waktu_tutup)){
+                        return view('Daftar.index')->with('daftar',$lamaran_dipilih)->with('waktu_tutup',$waktu_tutup);
+                    // kondisi selain di atas, maka form di tutup
+                    }else{
+                        return view('Daftar.tutup')->with('id',$id_lamaran);
+                    }
+
+                }
+
+                            
+            }else{
+                $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
+                // ambil waktu buka
+                $waktu_bukaArr = Lamaran::where('id', $id_lamaran)->first('buka');
+                $waktu_buka = Carbon::parse($waktu_bukaArr['buka']);
+
+                // ambil waktu tutup
+                $waktu_tutupArr = Lamaran::where('id',$id_lamaran)->first('tutup');
+                $waktu_tutup = Carbon::parse($waktu_tutupArr['tutup']);
+
+                // ambil waktu saat ini
+                $waktu_sekarang = Carbon::now('Asia/Jakarta');
+                $waktu_sekarang_parse = Carbon::parse($waktu_sekarang);
+
+                // bandingkan waktu nya
+                // jika waktu sekarang sama atau melewati waktu buka dan tidak melebihi waktu tutup maka tampilkan form
+                if(strtotime($waktu_sekarang) >= strtotime($waktu_buka) && strtotime($waktu_sekarang) <= strtotime($waktu_tutup)){
+                    return view('Daftar.index')->with('daftar',$lamaran_dipilih)->with('waktu_tutup',$waktu_tutup);
+                // kondisi selain di atas, maka form di tutup
+                }else{
+                    return view('Daftar.tutup')->with('id',$id_lamaran);
+                }
+            }    
         }
-        }
-        
-        
-        
-        
     }
 
     /**
@@ -89,7 +132,7 @@ class DaftarController extends Controller
     public function store(Request $request)
     {
         // waktu upload
-        $waktu_upload = Carbon::now()->locale('id')->isoFormat('D MMMM Y');
+        $waktu_upload = Carbon::now('Asia/Jakarta');
 
         $ValidasiData = $request->validate([
             'ktp' => 'required|file|image|max:800|mimes:JPG,jpeg',
@@ -240,13 +283,7 @@ class DaftarController extends Controller
             $waktu_lamaran->update();
             $request->session()->flash('info','Waktu telah di ubah!');
             return redirect()->route('daftar.index');
-        }
-
-
-
-        
-        
-
+        }   
     }
         
 
