@@ -22,7 +22,6 @@
                                 <th scope="col">Terima/Tolak</th>
                             @endif
                             <th scope="col">Respon</th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -64,7 +63,6 @@
                                         </td>
                                         <td>{{ $item->waktu_kirim }}</td>
                                         <td>{{ $item->status_administrasi }}</td>
-
                                     </tr>
                                 @endforeach
                             @endif
@@ -88,8 +86,11 @@
                                             <td>{{ $item->user->name }}</td>
                                             <td>{{ $item->user->id }}</td>
                                             <td>{{ $item->lamaran->posisi }}</td>
-                                            <td><a href="storage/daftar/{{ $item->ktp }}" class="btn btn-outline-dark"
-                                                    type="button"><i class="bi bi-eye"></i></a></td>
+                                            <td><a href="storage/daftar/{{ $item->ktp }}"
+                                                    class="btn btn-outline-dark"type="button">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </td>
                                             <td><a href="storage/daftar/{{ $item->npwp }}" class="btn btn-outline-dark"
                                                     type="button"><i class="bi bi-eye"></i></a></td>
                                             <td><a href="storage/daftar/{{ $item->cv }}" class="btn btn-outline-dark"
@@ -132,7 +133,6 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
 @endsection

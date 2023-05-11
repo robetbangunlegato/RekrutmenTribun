@@ -44,8 +44,9 @@
 
 
 
-            <button type="submit" class="btn btn-primary col-lg-12 col-md-12 col-sm-12 mt-3">Login</button>
-            <a href="{{ route('register') }}" class="btn btn-secondary col-lg-12 col-md-12 col-sm-12 mt-3">Daftar</a>
+
+            <button type="submit" class="btn btn-primary col-12 mt-3">Login</button>
+            <a href="{{ route('register') }}" class="btn btn-secondary col-12 mt-3">Daftar</a>
 
             <div class="flex items-center justify-center mt-4">
                 @if (Route::has('password.request'))

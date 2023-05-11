@@ -17,12 +17,26 @@ class WawancaraController extends Controller
      */
     public function index()
     {
-        //
-        $daftars = Daftar::all();
-        $waktu = DB::table('wawancaras')
-        ->select('waktu')
-        ->get();
-        return view('Wawancara.index')->with('daftars',$daftars)->with('waktu',$waktu);
+        //ambil user role
+        $user_id = auth()->user()->id;
+        $user_role = auth()->user()->role;
+
+        if($user_role == 'admin'){
+            $daftars = Daftar::all();
+            $waktu = DB::table('wawancaras')
+            ->select('waktu')
+            ->get();
+            return view('Wawancara.index')->with('daftars',$daftars)->with('waktu',$waktu);
+        }else{
+            $wawancaras = DB::table('wawancaras')
+            ->select('wawancaras.*')
+            ->where('id',$user_id)
+            ->get();
+            return view('Wawancara.index')->with('wawancaras',$wawancaras);
+        }
+
+
+        
     }
 
     /**
@@ -73,6 +87,21 @@ class WawancaraController extends Controller
     public function show($id)
     {
         //
+        $nama = DB::table('users')
+        ->select('users.name')
+        ->join('daftars','users.id','=','daftars.user_id')
+        ->join('wawancaras','daftars.id','=','wawancaras.daftar_id')
+        ->where('wawancaras.id',$id)
+        ->get();
+
+        $daftars = DB::table('daftars')
+        ->select('daftars.*')
+        ->join('wawancaras','daftars.id','=','wawancaras.daftar_id')
+        ->where('wawancaras.daftar_id',$id)
+        ->get();      
+
+        $wawancaras = Wawancara::find($id);
+        return view('Wawancara.show')->with('wawancaras',$wawancaras)->with('daftars',$daftars)->with('nama',$nama);
     }
 
     /**
@@ -96,6 +125,23 @@ class WawancaraController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $catatan = $request->input('catatan');
+        $wawancara = Wawancara::find($id);
+        $wawancara->catatan = $catatan;
+        $wawancara->update();
+        return back()->with('info','Catatan Berhasil di Simpan!');
+        
+    }
+
+    public function acc(Request $request, $id)
+    {
+        // 
+        $respon = $request->input('status_wawancara');
+        $wawancara = Wawancara::find($id);
+        $wawancara->status_wawancara = $respon;
+        $wawancara->update();
+        return back()->with('info','Status berhasil di ubah!');
+
     }
 
     /**

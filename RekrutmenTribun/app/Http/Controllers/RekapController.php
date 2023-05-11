@@ -22,8 +22,6 @@ class RekapController extends Controller
         
         if($user_role == 'non-admin'){
             $user = Auth::user()->id;
-            // $roles = Auth::user()->rule;
-            // dd($user_rule);
             
             $daftars = DB::table('daftars')
             ->select('daftars.*','lamarans.posisi')

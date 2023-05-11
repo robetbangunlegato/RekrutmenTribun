@@ -14,9 +14,9 @@ class PsikotesController extends Controller
     public function index(Request $request)
     {
         //mengambil ip
-        $ip = $request->ip();
+        // $ip = $request->ip();
 
-        dd($ip);
+        // dd($ip);
         return view('Psikotes.index');
     }
 

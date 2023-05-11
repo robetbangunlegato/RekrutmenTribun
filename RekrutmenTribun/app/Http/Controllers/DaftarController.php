@@ -206,7 +206,7 @@ class DaftarController extends Controller
 
         if($daftars->exists()){
             $request->session()->flash('info', 'Data berkas rekrutmen berhasil di kirim, tunggu di respon oleh HRD!');
-            return view('Daftar.rekapadmin');
+            return redirect()->route('lamaran.index');
         }else{
             $request->session()->flash('info','Data berkas rekrutmen gagal di kirim, silahkan di kirim ulang');
             // dd('gagal');
