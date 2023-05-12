@@ -94,11 +94,20 @@ class WawancaraController extends Controller
         ->where('wawancaras.id',$id)
         ->get();
 
+        $wawancara_daftarID = DB::table('wawancaras')
+        ->select('daftar_id')
+        ->where('id',$id)
+        ->get();
+
+        $wawancara_daftarID_singleValue = $wawancara_daftarID[0]->daftar_id;
+
         $daftars = DB::table('daftars')
         ->select('daftars.*')
         ->join('wawancaras','daftars.id','=','wawancaras.daftar_id')
-        ->where('wawancaras.daftar_id',$id)
-        ->get();      
+        ->where('wawancaras.daftar_id',$wawancara_daftarID_singleValue)
+        ->get();
+
+        // dd($daftars, 'ini dd daftars di controller',$id);
 
         $wawancaras = Wawancara::find($id);
         return view('Wawancara.show')->with('wawancaras',$wawancaras)->with('daftars',$daftars)->with('nama',$nama);

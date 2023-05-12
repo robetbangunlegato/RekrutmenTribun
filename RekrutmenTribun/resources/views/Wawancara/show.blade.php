@@ -23,6 +23,7 @@
                 </div>
             </div>
             <div class="table-responsive">
+
                 <table class="table border table-hover text-center">
                     <thead class="table-light">
                         <tr>

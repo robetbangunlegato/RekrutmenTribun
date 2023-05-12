@@ -8,13 +8,16 @@
                     <div class="alert alert-success alert-dismissible fade show col-lg-12 col-md-12 col-sm-12" role="alert">
                         {{ session()->get('info') }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;
+
+                            </span>
                         </button>
                     </div>
                 @endif
             </div>
         </div>
     </div>
+    {{-- isi --}}
     <div class="container">
         <div class="row">
             @if (auth()->user()->role == 'admin')
@@ -33,42 +36,50 @@
                         <tbody>
                             @php
                                 // menghitung jumlah kemunculan karakter '-'
-                                $jumlah_karakter = DB::table('daftars')
-                                    ->where('status_administrasi', '=', 'diterima')
-                                    ->sum(DB::raw('LENGTH(status_administrasi)'));
+                                $jumlah_kata = DB::table('daftars')
+                                    ->where('status_administrasi', 'LIKE', '%diterima%')
+                                    ->count();
                             @endphp
 
-                            @if ($jumlah_karakter == 0)
+                            @if ($jumlah_kata == 0)
                                 <td colspan="7" align="center">Tidak ada data</td>
                             @else
-                                @php
+                                {{-- @php
                                     $cek = true;
-                                @endphp
+                                @endphp --}}
                                 @foreach ($daftars as $item)
-                                    @if ($item->status_administrasi == 'diterima' && $item->wawancara->status_wawancara == null)
+                                    @if ($item->status_administrasi == 'diterima' && $item->wawancara == null)
                                         <tr class="align-middle">
                                             <td class="text-center">
                                                 <div>{{ $item->user->name }}</div>
                                             </td>
-                                            @php
+                                            {{-- @php
                                                 $query = DB::table('daftars')
                                                     ->select('daftars.id')
                                                     ->join('wawancaras', 'daftars.id', '=', 'wawancaras.daftar_id')
                                                     ->where('daftars.id', '=', $item->id)
                                                     ->get();
                                             @endphp
-                                            @if ($query->isEmpty())
-                                                {{-- button atur jadwal --}}
-                                                <td>
-                                                    <button class="btn btn-outline-dark btn-jadwal"
-                                                        id-daftars="{{ $item->id }}" data-toggle="modal"
-                                                        data-target="#JadwalModal">Atur Jadwal</button>
+                                            @if ($query->isEmpty()) --}}
+                                            {{-- button atur jadwal --}}
+                                            <td>
+                                                <button class="btn btn-outline-dark btn-jadwal"
+                                                    id-daftars="{{ $item->id }}" data-toggle="modal"
+                                                    data-target="#JadwalModal">Atur Jadwal</button>
+                                            </td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            {{-- @else
+                                            @endif --}}
+                                        </tr>
+                                    @else
+                                        @if ($item->wawancara->status_wawancara == '-' && $item->wawancara !== null)
+                                            <tr>
+                                                <td class="text-center">
+                                                    <div>{{ $item->user->name }}</div>
                                                 </td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                            @else
                                                 <td>
                                                     {{ $item->wawancara->waktu }}
                                                 </td>
@@ -107,84 +118,85 @@
                                                         </button>
                                                     </form>
                                                 </td>
-                                            @endif
-                                        </tr>
+                                            </tr>
+                                        @else
+                                            <td colspan="7" align="center">Tidak ada data</td>
+                                        @break
                                     @endif
-                                @endforeach
-                                @if ($cek)
-                                    <td colspan="6" align="center">Tidak ada data</td>
                                 @endif
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-            @else
-                <div class="table-responsive">
-                    <table class="table border mb-0 table-hover">
-                        <thead class="table-light fw-semibold">
-                            <tr class="text-center">
-                                <th>Status Wawancara</th>
-                                <th>Jadwal Wawancara</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            @foreach ($wawancaras as $item)
-                                <tr>
-                                    <td>{{ $item->status_wawancara }}</td>
-                                    <td>{{ $item->waktu }}</td>
-                                </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-        </div>
-        @endif
-        {{-- modal jadwal --}}
-        <div class="modal fade" id="JadwalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form action="{{ route('wawancara.store') }}" method="POST">
-                        @csrf
-                        <div class="modal-header">
-                            <h5 class="modal-title">Atur Jadwal Wawancara</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <i class="bi bi-x"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body text-center" id="isi-modal">
-                            <label for="">Tanggal</label>
-                            <input type="date" class="form-control" name="tanggal">
-                            <label for="" class="mt-3">Waktu</label>
-                            <input type="time" class="form-control" name="waktu">
-                            <input type="text" hidden id="id_kirim" name="id_kirim">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-dark" data-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-success">Jadwalkan</button>
-                        </div>
-                    </form>
-                </div>
+                            {{-- @if ($cek)
+                                    <td colspan="6" align="center">Tidak ada data</td>
+                                @endif --}}
+                        @endif
+                    </tbody>
+                </table>
             </div>
+        @else
+            <div class="table-responsive">
+                <table class="table border mb-0 table-hover">
+                    <thead class="table-light fw-semibold">
+                        <tr class="text-center">
+                            <th>Status Wawancara</th>
+                            <th>Jadwal Wawancara</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        @foreach ($wawancaras as $item)
+                            <tr>
+                                <td>{{ $item->status_wawancara }}</td>
+                                <td>{{ $item->waktu }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
+    </div>
+</div>
+
+{{-- modal jadwal --}}
+<div class="modal fade" id="JadwalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{ route('wawancara.store') }}" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">Atur Jadwal Wawancara</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <div class="modal-body text-center" id="isi-modal">
+                    <label for="">Tanggal</label>
+                    <input type="date" class="form-control" name="tanggal">
+                    <label for="" class="mt-3">Waktu</label>
+                    <input type="time" class="form-control" name="waktu">
+                    <input type="text" hidden id="id_kirim" name="id_kirim">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success">Jadwalkan</button>
+                </div>
+            </form>
         </div>
-
-
-
-        <script>
-            // modal jadwal
-            $('.btn-jadwal').click(function() {
-
-                // ambil data id daftars
-                let id = $(this).attr('id-daftars');
-
-                // set nilai pada input yang ber id 'id_kirim'
-                let id_kirim1 = document.getElementById('id_kirim');
-                id_kirim1.value = id;
-
-            })
-        </script>
-
-
     </div>
-    </div>
+</div>
+
+
+{{-- script js modal jadwal --}}
+<script>
+    // modal jadwal
+    $('.btn-jadwal').click(function() {
+
+        // ambil data id daftars
+        let id = $(this).attr('id-daftars');
+
+        // set nilai pada input yang ber id 'id_kirim'
+        let id_kirim1 = document.getElementById('id_kirim');
+        id_kirim1.value = id;
+
+    })
+</script>
 @endsection
