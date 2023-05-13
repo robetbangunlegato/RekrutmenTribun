@@ -26,6 +26,7 @@ class WawancaraController extends Controller
             $waktu = DB::table('wawancaras')
             ->select('waktu')
             ->get();
+            $wawancaras = Wawancara::all();
             return view('Wawancara.index')->with('daftars',$daftars)->with('waktu',$waktu);
         }else{
             $wawancaras = DB::table('wawancaras')
