@@ -210,7 +210,7 @@ class DaftarController extends Controller
         }else{
             $request->session()->flash('info','Data berkas rekrutmen gagal di kirim, silahkan di kirim ulang');
             // dd('gagal');
-            return redirect()->route('Daftar.index');
+            return redirect()->route('daftar.index');
         }
     }
 

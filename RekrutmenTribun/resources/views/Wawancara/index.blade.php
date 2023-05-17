@@ -105,13 +105,8 @@
                                             </form>
                                         </td>
                                     </tr>
-                                    {{-- @elseif($jumlah_karakter == 0)
-                                    <td colspan="7" align="center">Tidak ada data</td> --}}
                                 @endif
                             @endforeach
-                            {{-- @if ($jumlah_karakter == 0)
-                                <td colspan="7" align="center">Tidak ada data</td>
-                            @endif --}}
                         </tbody>
                     </table>
                 </div>
@@ -143,7 +138,7 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="{{ route('wawancara.store') }}" method="POST">
+                <form action="{{ route('wawancara.store') }}" method="POST" id="form-jadwalkan">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">Atur Jadwal Wawancara</h5>
@@ -153,14 +148,16 @@
                     </div>
                     <div class="modal-body text-center" id="isi-modal">
                         <label for="">Tanggal</label>
-                        <input type="date" class="form-control" name="tanggal">
+                        <input type="date" class="form-control" name="tanggal" id="tanggal">
+                        {{-- <p for="" style="color: red;" id="alert-tanggal"></p> --}}
                         <label for="" class="mt-3">Waktu</label>
-                        <input type="time" class="form-control" name="waktu">
+                        <input type="time" class="form-control" name="waktu" id="waktu">
+                        <p for="" style="color: red;" id="alert-waktu"></p>
                         <input type="text" hidden id="id_kirim" name="id_kirim">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-dark" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-success">Jadwalkan</button>
+                        <button type="submit" class="btn btn-success btn-jadwalkan">Jadwalkan</button>
                     </div>
                 </form>
             </div>
@@ -181,5 +178,64 @@
             id_kirim1.value = id;
 
         })
+
+        // setting error saat input jadwal
+        // const alert_tanggal = document.getElementById('alert-tanggal');
+        // const alert_waktu = document.getElementById('alert-waktu');
+        // let tanggal_sekarang = new Date();
+        // $('.btn-jadwalkan').click(function() {
+        //     const inputTanggal = document.getElementById('tanggal').value;
+
+        //     const inputWaktu = document.getElementById('waktu').value;
+        //     let inputTanggal_konversi = new Date(inputTanggal);
+
+        //     const tanggal_sekarang_konversi1 = tanggal_sekarang.setHours(0, 0, 0, 0);
+        //     const inputTanggal_konversi1 = inputTanggal_konversi.setHours(0, 0, 0, 0);
+
+        //     if (inputTanggal === '' && inputWaktu === '') {
+        //         alert_tanggal.textContent = 'Tanggal harus di isi!';
+        //         alert_waktu.textContent = 'Waktu harus di isi!';
+
+        //     } else if (inputWaktu === '') {
+        //         alert_waktu.textContent = 'Waktu harus di isi!';
+
+        //     } else if (inputTanggal === '') {
+        //         alert_tanggal.textContent = 'Tanggal harus di isi!';
+
+        //     } else if (inputTanggal_konversi1 === tanggal_sekarang_konversi1 || inputTanggal_konversi1 <
+        //         tanggal_sekarang_konversi1) {
+        //         alert_tanggal.textContent = 'Tanggal harus setelah hari ini!';
+        //     }
+        // })
+        // const inputTanggal = document.getElementById('tanggal').value;
+
+        // const inputWaktu = document.getElementById('waktu').value;
+        // let inputTanggal_konversi = new Date(inputTanggal);
+
+        // const tanggal_sekarang_konversi1 = tanggal_sekarang.setHours(0, 0, 0, 0);
+        // const inputTanggal_konversi1 = inputTanggal_konversi.setHours(0, 0, 0, 0);
+
+        // document.getElementById("form-jadwalkan").addEventListener("submit", function(event) {
+        //     event.preventDefault();
+
+        //     if (inputTanggal === '' && inputWaktu === '') {
+        //         alert_tanggal.textContent = 'Tanggal harus di isi!';
+        //         alert_waktu.textContent = 'Waktu harus di isi!';
+        //         // event.preventDefault();
+
+        //     } else if (inputWaktu === '') {
+        //         alert_waktu.textContent = 'Waktu harus di isi!';
+        //         // event.preventDefault();
+
+        //     } else if (inputTanggal === '') {
+        //         alert_tanggal.textContent = 'Tanggal harus di isi!';
+        //         // event.preventDefault();
+
+        //     } else if (inputTanggal_konversi1 === tanggal_sekarang_konversi1 || inputTanggal_konversi1 <
+        //         tanggal_sekarang_konversi1) {
+        //         alert_tanggal.textContent = 'Tanggal harus setelah hari ini!';
+        //         // event.preventDefault();
+        //     }
+        // });
     </script>
 @endsection

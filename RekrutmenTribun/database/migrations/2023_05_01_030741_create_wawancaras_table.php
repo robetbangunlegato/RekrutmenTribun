@@ -16,7 +16,6 @@ class CreateWawancarasTable extends Migration
         Schema::create('wawancaras', function (Blueprint $table) {
             $table->id();
             $table->datetime('waktu')->default('1000-10-10 00:00:00');
-            $table->time('durasi');
             $table->string('catatan');
             $table->string('status_wawancara')->default('-');
             $table->timestamps();
