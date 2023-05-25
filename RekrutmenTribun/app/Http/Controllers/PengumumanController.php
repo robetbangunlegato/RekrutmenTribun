@@ -3,20 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\kategori_soals;
+use App\Models\hasil_totals;
 
-class PsikotesController extends Controller
+class PengumumanController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        //mengambil ip
-        $psikotes = kategori_soals::all();
-        return view('Psikotes.index')->with('psikotes',$psikotes);
+        //
+        if(auth()->user()->role = 'admin'){
+            $hasil_totals = hasil_totals::all();
+            return view('Pengumuman.index')->with('hasil_totals',$hasil_totals);
+        }else{
+            // $user_id = auth()->user()->id;
+
+            // $hasil_totals = DB::table('hasil_totals')
+            // ->select('hasil_totals.*')
+            // ->where('id',$user_id)
+            // ->get();
+
+            // return view('Pengumuman.index')->with('hasil_totals');
+        }
     }
 
     /**
@@ -27,7 +38,6 @@ class PsikotesController extends Controller
     public function create()
     {
         //
-        return view('Psikotes.create');
     }
 
     /**
@@ -39,18 +49,6 @@ class PsikotesController extends Controller
     public function store(Request $request)
     {
         //
-        $ValidasiData = $request->validate([
-            'kategori_soal' => 'required'
-        ]);
-
-        $psikotes = new kategori_soals();
-        $psikotes->kategori_soal = $ValidasiData['kategori_soal'];
-        $psikotes->save();
-
-        $request->session()->flash('info','Data berhasil di tambah');
-        return redirect()->route('psikotes.index');
-
-
     }
 
     /**
@@ -62,9 +60,6 @@ class PsikotesController extends Controller
     public function show($id)
     {
         //
-        
-
-
     }
 
     /**
@@ -76,9 +71,6 @@ class PsikotesController extends Controller
     public function edit($id)
     {
         //
-        $psikotes = Psikotes::find($id);
-        return view('Psikotes.edit')->with('psikotes',$psikotes);
-
     }
 
     /**
@@ -91,17 +83,6 @@ class PsikotesController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $ValidasiData = $request->validate([
-            'kategori_soal'=>'required',
-            'waktu_pengerjaan'=>'required'
-        ]);
-
-        $psikotes = Psikotes::find($id);
-        $psikotes->kategori_soal = $ValidasiData['kategori_soal'];
-        $psikotes->waktu_pengerjaan = $ValidasiData['waktu_pengerjaan'];
-        $psikotes->update();
-        $request->session()->flash('info','Data berhasil di ubah!');
-        return redirect()->route('psikotes.index');
     }
 
     /**
@@ -113,8 +94,5 @@ class PsikotesController extends Controller
     public function destroy($id)
     {
         //
-        $psikotes = Psikotes::find($id);
-        $psikotes->delete();
-        return redirect()->route('psikotes.index')->with('info','Data kategori soal berhasil di hapus!');
     }
 }

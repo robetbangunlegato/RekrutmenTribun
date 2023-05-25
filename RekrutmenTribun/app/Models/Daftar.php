@@ -16,5 +16,6 @@ class Daftar extends Model
     public function wawancara(){
         return $this->hasOne('App\Models\Wawancara');
     }
+
     use HasFactory;
 }

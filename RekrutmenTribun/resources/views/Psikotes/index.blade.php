@@ -16,44 +16,41 @@
         </div>
     </div>
     {{-- body --}}
+    <div id="loading-overlay">
+        <div class="loader"></div>
+    </div>
+
     <div class="container">
         <div class="row">
-            <div class="container mb-3">
-                <a href="{{ route('psikotes.create') }}" class="btn btn-outline-primary col-12">Buat Kategori Soal</a>
-            </div>
-            <div class="container">
-                <table class="table border mb-0 table-hover">
-                    <thead class="table-light fw-semibold">
-                        <tr>
-                            <td>
-                                Kategori Soal
-                            </td>
-                            <td>
-                                Waktu Pengerjaan
-                            </td>
-                            <td class="text-center">Kontrol</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($psikotes as $item)
-                            <tr>
-                                <td>{{ $item->kategori_soal }}</td>
-                                <td>{{ $item->waktu_pengerjaan }}</td>
-                                <td class="text-center">
-                                    <a href="{{ url('psikotes/' . $item->id . '/edit') }}" class="btn btn-warning">Edit</a>
-                                    <a href="{{ route('soal.index') }}" class="btn btn-secondary">Buat Soal</a>
-                                    <Button class="btn btn-danger btn-hapus" id-psikotes="{{ $item->id }}"
-                                        kategori-soal="{{ $item->kategori_soal }}" data-toggle="modal"
-                                        data-target="#HapusModal">Hapus</Button>
-                                    <a href="http://" class="btn btn-primary">Kerjakan</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            @if (auth()->user()->role == 'admin')
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3 fixed-h">
+                    <div class="card card-psikotes">
+                        <a href="{{ route('psikotes.create') }}" class="btn btn-secondary h-100 position-relative">
+                            <i class="bi bi-pencil-square position-absolute top-50 start-50 translate-middle"
+                                style="font-size: 50px; font-style: normal"> Kategori soal</i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3 fixed-h">
+                    <div class="card card-psikotes">
+                        <a href="{{ route('soal.create') }}" class="btn btn-info h-100 position-relative">
+                            <i class="bi bi-journal-plus position-absolute top-50 start-50 translate-middle"
+                                style="font-size: 50px; font-style: normal"> Soal</i>
+                        </a>
+                    </div>
+                </div>
+            @endif
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-3 fixed-h">
+                <div class="card card-psikotes">
+                    <a href="{{ route('tes.index') }}" class="btn btn-primary h-100 position-relative">
+                        <i class="bi bi-pen position-absolute top-50 start-50 translate-middle"
+                            style="font-size: 50px; font-style: normal"> Tes</i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+
     {{-- modal hapus --}}
     <div class="modal fade" id="HapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -130,7 +127,7 @@
             let posisi = $(this).attr('kategori-soal');
 
             // mengisi modal-body yang ada pada file modal
-            $("#isi-modal").text('Apakah kategori soal "' + posisi + '" ingin di hapus ?');
+            $("#isi-modal").text('Apakah kategori soal ' + posisi + ' ingin di hapus ?');
         })
 
         // menambahkan attribut type yang bernilai 'submit' pada form di file modal untuk mengirim data ke controller
@@ -138,5 +135,61 @@
             $('#FormulirHapus').submit();
 
         })
+
+        // Menampilkan animasi loading
+        function showLoading() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+        }
+
+        // Menghilangkan animasi loading
+        function hideLoading() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        // Mengatur event untuk menyembunyikan animasi loading setelah halaman selesai dimuat
+        window.addEventListener('load', function() {
+            hideLoading();
+        });
     </script>
+
+    <style>
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+
+
+        }
+
+        .card-psikotes {
+            width: 390, 4px;
+            height: 545px;
+        }
+    </style>
 @endsection

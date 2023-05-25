@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\kategori_soals;
-use App\Models\soals;
-use Illuminate\Support\Facades\DB;
+use App\Models\pilihans;
+use Illuminate\Support\Facades\Redirect;
 
-class SoalController extends Controller
+
+class PilihanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,7 @@ class SoalController extends Controller
     public function index()
     {
         //
-        return view('Soal.index');
+        
     }
 
     /**
@@ -28,9 +29,8 @@ class SoalController extends Controller
     public function create()
     {
         //
-        $kategori_soal = kategori_soals::all();
-        $soals = soals::all();
-        return view('Soal.create')->with('kategori_soal', $kategori_soal)->with('soals',$soals);
+        $soals = kategori_soals::all();
+        return view('Pilihan.create')->with('soals',$soals);
     }
 
     /**
@@ -43,21 +43,23 @@ class SoalController extends Controller
     {
         //
         $ValidasiData = $request->validate([
-            'soal' => 'required',
-            'kategori_soal_id' => 'required'
+            'pilihan' => 'required',
+            'poin' => 'required|numeric',
+            'soal_id' => 'required'
         ],[
-            'soal.required' => 'Soal harus di isi!',
-            'kategori_soal_id.required' => 'Kategori soal harus di pilih!',
-
+            'pilihan.required' => 'Pilihan soal harus di isi!',
+            'poin.required' => 'Poin harus di isi!',
+            'poin.numeric'=>'Poin harus berupa angka!'
         ]);
 
-        $soals = new soals();
-        $soals->soal = $ValidasiData['soal'];
-        $soals->kategori_soals_id = $ValidasiData['kategori_soal_id'];
+        $pilihan = new pilihans();
+        $pilihan->soals_id = $ValidasiData['soal_id'];
+        $pilihan->pilihan = $ValidasiData['pilihan'];
+        $pilihan->poin = $ValidasiData['poin'];
 
-        // simpan data soal
-        $soals->save();
-        return redirect()->route('soal.create');        
+        $pilihan->save();
+        $request->session()->flash('info','Pilihan berhasil di tambahkan!');
+        return Redirect::back();
     }
 
     /**
@@ -69,26 +71,6 @@ class SoalController extends Controller
     public function show($id)
     {
         //
-        $soal = soals::find($id);
-
-        $kategori_id = DB::table('soals')
-        ->select('kategori_soals_id')
-        ->where('id',$id)
-        ->get();
-
-        $kategori_soals = DB::table('kategori_soals')
-        ->select('kategori_soal')
-        ->where('id',$kategori_id[0]->kategori_soals_id)
-        ->get();
-
-        $kategori_soal = $kategori_soals[0]->kategori_soal;
-        
-        $pilihan = DB::table('pilihans')
-        ->select('pilihans.*')
-        ->where('soals_id',$soal->id)
-        ->get();
-        
-        return view('Soal.show')->with('soal',$soal)->with('kategori_soal',$kategori_soal)->with('pilihans',$pilihan);
     }
 
     /**

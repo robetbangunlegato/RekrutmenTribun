@@ -117,7 +117,7 @@
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-color-border"></use>
                     </svg>Psikotes</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="index.html">
+            <li class="nav-item"><a class="nav-link" href="{{ url('pengumuman') }}">
                     <svg class="nav-icon">
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-align-center"></use>
                     </svg>Pengumuman Akhir</a>

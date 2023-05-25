@@ -2,87 +2,101 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <h1 class="text-center">Formulir Pendaftaran {{ $daftar->posisi }}</h1>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <p class="text-center text-muted" id="waktu_sisa"></p>
-            </div>
-            <form action="{{ route('daftar.store') }}" id="FormDataDaftar" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <label for="" class="form-label">KTP</label>
-                    <input type="file" value="" id="ktp" name="ktp" class="form-control">
-                    <p class="text-danger">| JPG | Max 800KB |</p>
-                    @if ($errors->has('ktp'))
-                        <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3">
-                            {{ $errors->first('ktp') }}
-                        </div>
-                    @endif
+            @if (auth()->user()->role == 'admin')
+                <div class="col-lg-12 col-md-12 col-sm-12 d-flex align-items-center justify-content-center"
+                    style="margin-top: 20%">
+                    <div class="text-center">
+                        <p class="text-muted text-center align-items-center" id="waktu_sisa"></p>
+                    </div>
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <label for="" class="form-label">NPWP</label>
-                    <input type="file" value="" id="npwp" name="npwp" class="form-control">
-                    <p class="text-danger">| JPG | Max 800KB |</p>
-                    @if ($errors->has('npwp'))
-                        <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3">
-                            {{ $errors->first('npwp') }}
-                        </div>
-                    @endif
+                {{-- <div class="d-flex align-items-center justify-content-center mt-80">
+                    <div class="text-center">
+                        <h1>Teks Tengah</h1>
+                    </div>
+                </div> --}}
+            @elseif (auth()->user()->role == 'non-admin')
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h1 class="text-center">Formulir Pendaftaran {{ $daftar->posisi }}</h1>
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <label for="" class="form-label">CV</label>
-                    <input type="file" value="" id="cv" name="cv" class="form-control">
-                    <p class="text-danger">| JPG | Max 800KB |</p>
-                    @if ($errors->has('cv'))
-                        <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3">
-                            {{ $errors->first('cv') }}
-                        </div>
-                    @endif
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <p class="text-center text-muted" id="waktu_sisa"></p>
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <label for="" class="form-label">Lamaran</label>
-                    <input type="file" value="" id="lamaran" name="lamaran" class="form-control">
-                    <p class="text-danger">| JPG | Max 800KB |</p>
-                    @if ($errors->has('lamaran'))
-                        <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3">
-                            {{ $errors->first('lamaran') }}
-                        </div>
-                    @endif
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <label for="" class="form-label">Data Pendukung</label>
-                    <input type="file" value="" id="data_pendukung" name="data_pendukung" class="form-control">
-                    <p class="text-danger">| PDF | Max 2MB | Opsional |</p>
-                    @if ($errors->has('data_pendukung'))
-                        <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3">
-                            {{ $errors->first('data_pendukung') }}
-                        </div>
-                    @endif
-                </div>
-                <input type="text" value="{{ $daftar->id }}" hidden id="id" name="id">
-                <div class="cotainer">
-                    <div class="row">
-                        <div class="container">
-                            <div class="form-group form-check mb-3">
-                                <input type="checkbox" class="form-check-input col-lg-12 col-md-12" id="exampleCheck1"
-                                    required>
-                                <label class="form-check-label" for="exampleCheck1">Dengan melakukan centang
-                                    anda
-                                    dengan
-                                    kesadaran penuh
-                                    bertanggung jawab atas keaslian data yang di kirim.</label>
+                <form action="{{ route('daftar.store') }}" id="FormDataDaftar" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <label for="" class="form-label">KTP</label>
+                        <input type="file" value="" id="ktp" name="ktp" class="form-control">
+                        <p class="text-danger">| JPG | Max 800KB |</p>
+                        @if ($errors->has('ktp'))
+                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3">
+                                {{ $errors->first('ktp') }}
+                            </div>
+                        @endif
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <label for="" class="form-label">NPWP</label>
+                        <input type="file" value="" id="npwp" name="npwp" class="form-control">
+                        <p class="text-danger">| JPG | Max 800KB |</p>
+                        @if ($errors->has('npwp'))
+                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3">
+                                {{ $errors->first('npwp') }}
+                            </div>
+                        @endif
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <label for="" class="form-label">CV</label>
+                        <input type="file" value="" id="cv" name="cv" class="form-control">
+                        <p class="text-danger">| JPG | Max 800KB |</p>
+                        @if ($errors->has('cv'))
+                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3">
+                                {{ $errors->first('cv') }}
+                            </div>
+                        @endif
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <label for="" class="form-label">Lamaran</label>
+                        <input type="file" value="" id="lamaran" name="lamaran" class="form-control">
+                        <p class="text-danger">| JPG | Max 800KB |</p>
+                        @if ($errors->has('lamaran'))
+                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3">
+                                {{ $errors->first('lamaran') }}
+                            </div>
+                        @endif
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <label for="" class="form-label">Data Pendukung</label>
+                        <input type="file" value="" id="data_pendukung" name="data_pendukung" class="form-control">
+                        <p class="text-danger">| PDF | Max 2MB | Opsional |</p>
+                        @if ($errors->has('data_pendukung'))
+                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3">
+                                {{ $errors->first('data_pendukung') }}
+                            </div>
+                        @endif
+                    </div>
+                    <input type="text" value="{{ $daftar->id }}" hidden id="id" name="id">
+                    <div class="cotainer">
+                        <div class="row">
+                            <div class="container">
+                                <div class="form-group form-check mb-3">
+                                    <input type="checkbox" class="form-check-input col-lg-12 col-md-12" id="exampleCheck1"
+                                        required>
+                                    <label class="form-check-label" for="exampleCheck1">Dengan melakukan centang
+                                        anda
+                                        dengan
+                                        kesadaran penuh
+                                        bertanggung jawab atas keaslian data yang di kirim.</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <p class="text-danger">*Semua file yang dikirim tidak dapat di ubah!</p>
-                </div>
-                <div class="">
-                    <button type="submit" class="btn btn-danger col-lg-12 col-md-12 col-sm-12 mb-3">Kirim</button>
-                </div>
-            </form>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <p class="text-danger">*Semua file yang dikirim tidak dapat di ubah!</p>
+                    </div>
+                    <div class="">
+                        <button type="submit" class="btn btn-danger col-lg-12 col-md-12 col-sm-12 mb-3">Kirim</button>
+                    </div>
+                </form>
+            @endif
         </div>
     </div>
 

@@ -40,7 +40,6 @@ class DaftarController extends Controller
             // ambil user id
             $userId = auth()->user()->id;
             $daftars = Daftar::where('user_id',$userId)->first();
-
             // jika sudah ada data
             if($daftars){
 
@@ -83,10 +82,7 @@ class DaftarController extends Controller
                     }else{
                         return view('Daftar.tutup')->with('id',$id_lamaran);
                     }
-
-                }
-
-                            
+                }        
             }else{
                 $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
                 // ambil waktu buka

@@ -45,4 +45,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function hasil_User()
+    {
+        return $this->hasMany('App\Models\hasil_totals');
+    }
+
+    public function daftar(){
+        return $this->hasMany('App\Models\Daftar');
+    }
 }

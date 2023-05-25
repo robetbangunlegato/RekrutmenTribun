@@ -39,15 +39,12 @@ class RekapController extends Controller
                 return view('Daftar.rekapadmin')->with('daftars',$daftars)->with('role',$user_role); 
             }            
             
-
         }elseif($user_role == 'admin'){
             $daftars = Daftar::all();
             if(count($daftars) < 1){
                 $daftars = 'Tidak ada data';
             }
             return view('Daftar.rekapadmin')->with('daftars',$daftars)->with('role',$user_role);
-        
-
         }
         
     }   

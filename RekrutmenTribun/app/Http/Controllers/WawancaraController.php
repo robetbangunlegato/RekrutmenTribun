@@ -29,10 +29,23 @@ class WawancaraController extends Controller
             $wawancaras = Wawancara::all();
             return view('Wawancara.index')->with('daftars',$daftars)->with('waktu',$waktu);
         }else{
+
+
+            $daftar_id = DB::table('daftars')
+            ->select('id')
+            ->where('user_id',$user_id)
+            ->get();
+
+            if($daftar_id){
+                $daftar_id = '';
+            }
+            
             $wawancaras = DB::table('wawancaras')
             ->select('wawancaras.*')
-            ->where('id',$user_id)
+            ->where('daftar_id',$daftar_id)
             ->get();
+
+            // dd($wawancaras);
             return view('Wawancara.index')->with('wawancaras',$wawancaras);
         }
 
