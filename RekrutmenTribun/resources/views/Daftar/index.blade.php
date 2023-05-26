@@ -9,17 +9,22 @@
                         <p class="text-muted text-center align-items-center" id="waktu_sisa"></p>
                     </div>
                 </div>
-                {{-- <div class="d-flex align-items-center justify-content-center mt-80">
-                    <div class="text-center">
-                        <h1>Teks Tengah</h1>
-                    </div>
-                </div> --}}
             @elseif (auth()->user()->role == 'non-admin')
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <h1 class="text-center">Formulir Pendaftaran {{ $daftar->posisi }}</h1>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <p class="text-center text-muted" id="waktu_sisa"></p>
+                </div>
+                <div class="text-center">
+                    <img src="{{ asset('storage/' . $foto) }}" alt="" class="align-items-center mb-5"
+                        style="border-radius: 2%;" idth="401px" height="401px">
+                </div>
+                <div class="container">
+                    <div class="container">
+                        <h3 class="text-center">Silahkan isi formulir di bawah ini!</h3>
+                        <hr>
+                    </div>
                 </div>
                 <form action="{{ route('daftar.store') }}" id="FormDataDaftar" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -72,6 +77,9 @@
                                 {{ $errors->first('data_pendukung') }}
                             </div>
                         @endif
+                    </div>
+                    <div class="container">
+                        <hr>
                     </div>
                     <input type="text" value="{{ $daftar->id }}" hidden id="id" name="id">
                     <div class="cotainer">

@@ -36,6 +36,7 @@ class DaftarController extends Controller
             return $this->lamaranController->index();
 
         }else{
+            $foto = Lamaran::find($id_lamaran)->select('foto')->get()[0]->foto;
             // cek apakah sudah pernah isi data
             // ambil user id
             $userId = auth()->user()->id;
@@ -77,7 +78,7 @@ class DaftarController extends Controller
                     // bandingkan waktu nya
                     // jika waktu sekarang sama atau melewati waktu buka dan tidak melebihi waktu tutup maka tampilkan form
                     if(strtotime($waktu_sekarang) >= strtotime($waktu_buka) && strtotime($waktu_sekarang) <= strtotime($waktu_tutup)){
-                        return view('Daftar.index')->with('daftar',$lamaran_dipilih)->with('waktu_tutup',$waktu_tutup);
+                        return view('Daftar.index')->with('daftar',$lamaran_dipilih)->with('waktu_tutup',$waktu_tutup)->with('foto',$foto);
                     // kondisi selain di atas, maka form di tutup
                     }else{
                         return view('Daftar.tutup')->with('id',$id_lamaran);
@@ -100,7 +101,7 @@ class DaftarController extends Controller
                 // bandingkan waktu nya
                 // jika waktu sekarang sama atau melewati waktu buka dan tidak melebihi waktu tutup maka tampilkan form
                 if(strtotime($waktu_sekarang) >= strtotime($waktu_buka) && strtotime($waktu_sekarang) <= strtotime($waktu_tutup)){
-                    return view('Daftar.index')->with('daftar',$lamaran_dipilih)->with('waktu_tutup',$waktu_tutup);
+                    return view('Daftar.index')->with('daftar',$lamaran_dipilih)->with('waktu_tutup',$waktu_tutup)->with('foto',$foto);
                 // kondisi selain di atas, maka form di tutup
                 }else{
                     return view('Daftar.tutup')->with('id',$id_lamaran);
