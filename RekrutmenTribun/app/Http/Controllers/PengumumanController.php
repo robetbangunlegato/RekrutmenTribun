@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\hasil_totals;
+use App\Models\kategori_soals;
+use App\Models\hasil_akhir;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 
 class PengumumanController extends Controller
 {
@@ -14,20 +18,27 @@ class PengumumanController extends Controller
      */
     public function index()
     {
-        //
-        if(auth()->user()->role = 'admin'){
+        if(auth()->user()->role == 'admin'){
             $hasil_totals = hasil_totals::all();
-            return view('Pengumuman.index')->with('hasil_totals',$hasil_totals);
+            if($hasil_totals){
+                $hasil_totals = $hasil_totals;
+            }else{
+                $hasil_totals=[];
+            }
         }else{
-            // $user_id = auth()->user()->id;
+            $hasil_totals = DB::table('hasil_totals')
+            ->select('hasil_totals.created_at','hasil_totals.status_akhir')
+            ->where('user_id',auth()->user()->id)
+            ->get();
 
-            // $hasil_totals = DB::table('hasil_totals')
-            // ->select('hasil_totals.*')
-            // ->where('id',$user_id)
-            // ->get();
-
-            // return view('Pengumuman.index')->with('hasil_totals');
+            if($hasil_totals){
+                $hasil_totals = $hasil_totals;
+            }else{
+                $hasil_totals=[];
+            }
         }
+        return view('Pengumuman.index')->with('hasil_totals',$hasil_totals);
+        
     }
 
     /**
@@ -48,7 +59,7 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    
     }
 
     /**
@@ -59,7 +70,18 @@ class PengumumanController extends Controller
      */
     public function show($id)
     {
-        //
+        $hasil_totals_soals = DB::table('hasil_totals_soals')
+        ->join('soals', 'hasil_totals_soals.soals_id', '=', 'soals.id')
+        ->join('kategori_soals', 'soals.kategori_soals_id', '=', 'kategori_soals.id')
+        ->join('hasil_totals', 'hasil_totals_soals.hasil_totals_id', '=', 'hasil_totals.id')
+        ->join('users', 'hasil_totals.user_id', '=', 'users.id')
+        ->where('users.id', '=', $id)
+        ->groupBy('kategori_soals.kategori_soal', 'users.name', 'users.id','hasil_totals.status_akhir') // Mengelompokkan berdasarkan kategori_soal dan nama user
+        ->select('kategori_soals.kategori_soal', 'users.name','users.id','hasil_totals.status_akhir', DB::raw('SUM(hasil_totals_soals.poin) as total_poin'))
+        ->get();
+
+        $rowspan = kategori_soals::count();
+        return view('Pengumuman.show')->with('hasil_totals_soals',$hasil_totals_soals)->with('rowspan',$rowspan);
     }
 
     /**
@@ -83,6 +105,12 @@ class PengumumanController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $status_akhir_input = $request->input('hasil_akhir');
+        $hasil_akhir = hasil_totals::find($id);
+        $hasil_akhir->status_akhir = $status_akhir_input;
+        $hasil_akhir->update();
+        $request->session()->flash('info','Status berhasil di ubah');
+        return redirect()->route('pengumuman.index');
     }
 
     /**

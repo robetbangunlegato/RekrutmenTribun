@@ -92,6 +92,7 @@
                                                 method="post">
                                                 @method('POST')
                                                 @csrf
+                                                <input type="text" name="user_id" value="{{ $item->user->id }}" hidden>
                                                 <input type="hidden" name="id" value="{{ $item->wawancara->id }}">
                                                 <button class="btn btn-success" type="submit" name="status_wawancara"
                                                     value="diterima">

@@ -54,4 +54,9 @@ class User extends Authenticatable
     public function daftar(){
         return $this->hasMany('App\Models\Daftar');
     }
+
+    public function hasil_akhirs(){
+        return $this->hasMany('App\Models\hasil_akhirs');
+    }
+
 }

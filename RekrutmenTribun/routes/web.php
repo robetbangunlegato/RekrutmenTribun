@@ -10,6 +10,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PilihanController;
 use App\Http\Controllers\PsikotesController;
 use App\Http\Controllers\WawancaraController;
+use App\Http\Controllers\HasilAkhirController;
 use App\Http\Controllers\PengumumanController;
 
 
@@ -44,4 +45,5 @@ Route::resource('soal', SoalController::class)->middleware(['auth']);
 Route::resource('pilihan', PilihanController::class)->middleware(['auth']);
 Route::resource('tes', TesController::class)->middleware(['auth']);
 Route::resource('pengumuman', PengumumanController::class)->middleware(['auth']);
+Route::resource('hasil_akhir', HasilAkhirController::class)->middleware(['auth']);
 require __DIR__.'/auth.php';

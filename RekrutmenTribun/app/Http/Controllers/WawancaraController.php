@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Daftar;
 use App\Models\Wawancara;
+use App\Models\hasil_akhir;
 use Illuminate\Support\Facades\DB;
 use Carbon\carbon;
 
@@ -29,15 +30,17 @@ class WawancaraController extends Controller
             $wawancaras = Wawancara::all();
             return view('Wawancara.index')->with('daftars',$daftars)->with('waktu',$waktu);
         }else{
-
-
             $daftar_id = DB::table('daftars')
             ->select('id')
             ->where('user_id',$user_id)
-            ->get();
+            ->first();
 
-            if($daftar_id){
+            // jika daftar id tidak ditemukan
+            if($daftar_id == null){
                 $daftar_id = '';
+            // jika data daftar_id ditemukan
+            }elseif($daftar_id != null){;
+                $daftar_id = $daftar_id->id;
             }
             
             $wawancaras = DB::table('wawancaras')
@@ -121,8 +124,6 @@ class WawancaraController extends Controller
         ->where('wawancaras.daftar_id',$wawancara_daftarID_singleValue)
         ->get();
 
-        // dd($daftars, 'ini dd daftars di controller',$id);
-
         $wawancaras = Wawancara::find($id);
         return view('Wawancara.show')->with('wawancaras',$wawancaras)->with('daftars',$daftars)->with('nama',$nama);
     }
@@ -159,10 +160,20 @@ class WawancaraController extends Controller
     public function acc(Request $request, $id)
     {
         // 
+        
+
+        $user_id = $request->input('user_id');
+        $hasil_akhir = new hasil_akhir();
+        $hasil_akhir->users_id = $user_id;
+        $hasil_akhir->save();
+
         $respon = $request->input('status_wawancara');
         $wawancara = Wawancara::find($id);
         $wawancara->status_wawancara = $respon;
         $wawancara->update();
+
+        
+
         return back()->with('info','Status berhasil di ubah!');
 
     }

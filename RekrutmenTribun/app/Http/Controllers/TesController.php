@@ -60,9 +60,6 @@ class TesController extends Controller
             $status_administrasi = $status_administrasi->status_administrasi;
         }
 
-        
-        
-
         $status_wawancara = DB::table('wawancaras')
         ->select('status_wawancara')
         ->where('daftar_id',$status_administrasi_id)
@@ -77,10 +74,8 @@ class TesController extends Controller
             // cek apakah sudah 1x mengisi kuis di 1 sesi
             $user_id = auth()->user()->id;
             $tes = hasil_totals::where('user_id',$user_id)->first();
-            dd('halaman tes2');
             // jika sudah ada data
             if($tes){
-                dd('data sudah ada');
                 $waktu_psikotes = psikotes::where('id',1)->first();
 
                 // ambil waktu buka
@@ -105,7 +100,7 @@ class TesController extends Controller
                     
                 }
             }else{
-                return view('Tes.tutup');
+                return view('Tes.index')->with('kategori_soals', $kategori_soals)->with('waktu_tutup',$waktu_tutup)->with('status_administrasi',$status_administrasi)->with('status_wawancara',$status_wawancara);
                 
             }
         }else{
