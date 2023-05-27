@@ -162,10 +162,10 @@ class WawancaraController extends Controller
         // 
         
 
-        $user_id = $request->input('user_id');
-        $hasil_akhir = new hasil_akhir();
-        $hasil_akhir->users_id = $user_id;
-        $hasil_akhir->save();
+        // $user_id = $request->input('user_id');
+        // $hasil_akhir = new hasil_akhir();
+        // $hasil_akhir->users_id = $user_id;
+        // $hasil_akhir->save();
 
         $respon = $request->input('status_wawancara');
         $wawancara = Wawancara::find($id);

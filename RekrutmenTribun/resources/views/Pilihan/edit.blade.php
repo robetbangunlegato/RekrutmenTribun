@@ -17,19 +17,12 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="container">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Kategori Soal : {{ $kategori_soal }}</h5>
-                        <p class="card-text">{!! $soal->soal !!}</p>
-                    </div>
-                </div>
-            </div>
             <div class="container my-3">
-                <form action="{{ route('pilihan.store') }}" method="post">
+                <form action="{{ route('pilihan.update', [$pilihans->id]) }}" method="post">
+                    @method('PATCH')
                     @csrf
                     <label for="">Masukan pilihan</label>
-                    <textarea name="pilihan" id="editor" cols="30" rows="10" class=""></textarea>
+                    <textarea name="pilihan" id="editor" cols="30" rows="10" class="">{{ $pilihans->pilihan }}</textarea>
                     @if ($errors->has('pilihan'))
                         <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3" role="alert">
                             {{ $errors->first('pilihan') }}
@@ -37,82 +30,14 @@
                     @endif
                     {{-- input poin --}}
                     <label for="" class="mt-3">Poin</label>
-                    <input type="text" name="poin" class="form-control" placeholder="Masukan poin pilihan...">
+                    <input type="text" name="poin" class="form-control" placeholder="Masukan poin pilihan..."
+                        value="{{ $pilihans->poin }}">
                     @if ($errors->has('poin'))
                         <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3" role="alert">
                             {{ $errors->first('poin') }}
                         </div>
                     @endif
-                    {{-- id soal --}}
-                    <input type="text" value="{{ $soal->id }}" name="soal_id" hidden>
                     <button type="submit" class="btn btn-primary col-12 mt-3">Simpan</button>
-                </form>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <table class="table border table-hover text-center">
-                    <thead class="table-light">
-                        @php
-                            $no = 1;
-                        @endphp
-                        <tr>
-                            <td>No</td>
-                            <td>Pilihan</td>
-                            <td>Poin</td>
-                            <td>Kontrol</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($pilihans as $item)
-                            <tr>
-                                <td>
-                                    {{ $no }}
-                                </td>
-                                @php
-                                    $no = $no + 1;
-                                @endphp
-                                <td style="background-color: white">
-                                    {!! $item->pilihan !!}
-                                </td>
-                                <td>
-                                    {{ $item->poin }}
-                                </td>
-                                <td>
-                                    <a href="{{ route('pilihan.edit', [$item->id]) }}" class="btn btn-warning">Edit</a>
-
-                                    <button class="btn btn-danger btn-hapus" id-pilihan-soal="{{ $item->id }}"
-                                        pilihan-soal="{{ $item->pilihan }}" data-toggle="modal"
-                                        data-target="#HapusModal">Hapus</button>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    {{-- modal hapus --}}
-    <div class="modal fade" id="HapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form action="" method="POST" id="FormulirHapus">
-                    @method('DELETE')
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Hapus</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <i class="bi bi-x"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="isi-modal">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-danger">Hapus</button>
-                    </div>
                 </form>
             </div>
         </div>

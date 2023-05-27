@@ -2,24 +2,16 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <form action="{{ route('pilihan.store') }}">
+            <form action="{{ route('soal.update', [$soals->id]) }}" method="POST">
                 @csrf
-                <label for="">Pilih soal</label>
-                <select class="form-select mb-3" name="kategori_soal_id">
-                    <option selected value="">Pilih Soal</option>
-                    @foreach ($soals as $item)
-                        <option value="{{ $item->id }}">{!! $item->soal !!}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('kategori_soal_id'))
+                @method('PATCH')
+                <textarea name="soal" id="editor" cols="30" rows="10">{{ $soals->soal }}</textarea>
+                @if ($errors->has('soal'))
                     <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3">
-                        {{ $errors->first('kategori_soal_id') }}
+                        {{ $errors->first('soal') }}
                     </div>
                 @endif
-                <label for="">Masukan pilihan</label>
-                <textarea name="editor" id="" cols="30" rows="10"></textarea>
-
-                <button type="submit" class="btn btn-primary col-12 my-3">Simpan</button>
+                <button class="btn btn-primary col-12 my-3" type="submit">Simpan</button>
             </form>
         </div>
     </div>

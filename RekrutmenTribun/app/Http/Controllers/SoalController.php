@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\kategori_soals;
 use App\Models\soals;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class SoalController extends Controller
 {
@@ -100,6 +101,8 @@ class SoalController extends Controller
     public function edit($id)
     {
         //
+        $soals = soals::find($id);        
+        return view('Soal.edit')->with('soals',$soals);
     }
 
     /**
@@ -112,6 +115,19 @@ class SoalController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $ValidasiData = $request->validate([
+            'soal' => 'required'
+        ],[
+            'soal.required' => 'Soal harus di isi!'
+        ]);
+
+        $soals = soals::find($id);
+        $soals->soal = $ValidasiData['soal'];
+        $soals->update();
+
+        $request->session()->flash('info','Data berhasil di ubah!');
+        return redirect()->route('soal.create');
+        
     }
 
     /**
@@ -120,8 +136,12 @@ class SoalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+        $soals = soals::find($id);
+        $soals->delete();
+        $request->session()->flash('info','Data berhasil di hapus!');
+        return Redirect::back();
     }
 }

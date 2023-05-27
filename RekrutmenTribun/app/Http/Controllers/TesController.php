@@ -208,7 +208,9 @@ class TesController extends Controller
             $request->session()->flash('info','Waktu buka harus lebih dulu dari waktu tutup!');
             return redirect()->route('tes.index');
         }else{
+
             $psikotes = psikotes::find($id);
+            // dd($psikotes);
             $psikotes->buka = $buka_lamaran;
             $psikotes->tutup = $tutup_lamaran;
             $psikotes->update();

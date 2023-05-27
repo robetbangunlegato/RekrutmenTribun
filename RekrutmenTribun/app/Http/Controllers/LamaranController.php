@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Carbon\carbon;
 use App\Models\Lamaran;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
@@ -17,6 +18,7 @@ class LamaranController extends Controller
     public function index()
     {
         //
+
         $lamarans = Lamaran::all();
         return view('Lamaran.index')->with("lamarans", $lamarans);
     }

@@ -44,12 +44,13 @@ class PilihanController extends Controller
         //
         $ValidasiData = $request->validate([
             'pilihan' => 'required',
-            'poin' => 'required|numeric',
+            'poin' => 'required|numeric|min:0',
             'soal_id' => 'required'
         ],[
             'pilihan.required' => 'Pilihan soal harus di isi!',
             'poin.required' => 'Poin harus di isi!',
-            'poin.numeric'=>'Poin harus berupa angka!'
+            'poin.numeric'=>'Poin harus berupa angka!',
+            'poin.min'=>'Poin minimal 0'
         ]);
 
         $pilihan = new pilihans();
@@ -79,9 +80,11 @@ class PilihanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //
+        $pilihans = pilihans::find($id);
+        return view('Pilihan.edit')->with('pilihans', $pilihans);
     }
 
     /**
@@ -94,6 +97,25 @@ class PilihanController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $ValidasiData = $request->validate([
+            'pilihan' => 'required',
+            'poin' => 'required|numeric|min:0'
+        ],[
+            'pilihan.required' => 'Pilihan soal harus di isi!',
+            'poin.required' => 'Poin harus di isi!',
+            'poin.numeric'=>'Poin harus berupa angka!',
+            'poin.min'=>'Poin minimal 0'
+        ]);
+
+
+
+        $pilihan = pilihans::find($id);
+        $pilihan->pilihan = $ValidasiData['pilihan'];
+        $pilihan->poin = $ValidasiData['poin'];
+
+        $pilihan->update();
+        $request->session()->flash('info','Pilihan berhasil di ubah!');
+        return Redirect::back();
     }
 
     /**
@@ -102,8 +124,12 @@ class PilihanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+        $pilihans = pilihans::find($id);
+        $pilihans->delete();
+        $request->session()->flash('info','Data berhasil di hapus!');
+        return Redirect::back();
     }
 }

@@ -2,26 +2,16 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <form action="{{ route('psikotes.update', $psikotes->id) }}" method="post">
+            <form action="{{ route('psikotes.update', [$kategori_soals->id]) }}" method="post">
                 @method('PATCH')
                 @csrf
                 <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Kategori Soal</label>
                     <input type="text" id="kategori_soal" class="form-control" name="kategori_soal"
-                        placeholder="Masukan kategori soal..." value="{{ $psikotes->kategori_soal }}">
+                        placeholder="Masukan kategori soal..." value="{{ $kategori_soals->kategori_soal }}">
                     @error('kategori_soal')
                         <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3" role="alert">
                             {{ 'Kategori soal harus di isi!' }}
-                        </div>
-                    @enderror
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Waktu Pengerjaan</label>
-                    <input type="time" id="waktu_pengerjaan" class="form-control" name="waktu_pengerjaan"
-                        placeholder="Masukan kategori soal..." value="{{ $psikotes->waktu_pengerjaan }}">
-                    @error('waktu_pengerjaan')
-                        <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 my-3" role="alert">
-                            {{ 'Waktu pengerjaan harus di isi!' }}
                         </div>
                     @enderror
                 </div>
