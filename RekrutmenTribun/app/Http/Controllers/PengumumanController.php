@@ -125,7 +125,14 @@ class PengumumanController extends Controller
     }
 
     public function rekap(){
-        $hasil_totals = hasil_totals::where('status_akhir','diterima')->get();
-        return view('Pengumuman.rekap')->with('hasil_totals',$hasil_totals);
+        if (auth()->user()->role == 'admin') {
+            $hasil_totals = hasil_totals::where('status_akhir','diterima')->get();
+            return view('Pengumuman.rekap')->with('hasil_totals',$hasil_totals);
+        }elseif(auth()->user()->role == 'non-admin'){
+            $hasil_totals = hasil_totals::where('id',auht()->user()->id)->get();
+            return view('Pengumuman.rekap')->with('hasil_totals',$hasil_totals);
+
+        }
+        
     }
 }

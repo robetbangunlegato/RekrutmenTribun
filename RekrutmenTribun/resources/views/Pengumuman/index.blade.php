@@ -83,6 +83,9 @@
                 @endif
             </div>
         </div>
-        <a href="{{ route('pengumuman.rekap') }}" class="btn btn-primary my-3 col-12">Rekap</a>
+        @if (auth()->user()->role == 'admin')
+            <a href="{{ route('pengumuman.rekap') }}" class="btn btn-primary my-3 col-12">Rekap</a>
+        @endif
+
     </div>
 @endsection
