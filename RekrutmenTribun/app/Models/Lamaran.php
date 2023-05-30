@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lamaran extends Model
 {
-    public function lamarans(){
-        
+    protected $table = 'lamarans';
+    public function daftar(){
+        return $this->hasMany('App\Models\Daftar');
     }
     use HasFactory;
 }

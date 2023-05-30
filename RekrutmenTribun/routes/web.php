@@ -11,6 +11,7 @@ use App\Http\Controllers\PilihanController;
 use App\Http\Controllers\PsikotesController;
 use App\Http\Controllers\WawancaraController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\SettingController;
 
 
 /*
@@ -40,8 +41,10 @@ Route::post('daftar.showadmin', [DaftarController::class, 'showadmin'])->name('d
 Route::resource('wawancara', WawancaraController::class)->middleware(['auth']);
 Route::resource('psikotes',PsikotesController::class)->middleware(['auth']);
 Route::post('/wawancara/{id}/acc',[WawancaraController::class,'acc'])->name('wawancara.acc')->middleware(['auth']);
+Route::get('/pengumuman/rekap', [PengumumanController::class, 'rekap'])->name('pengumuman.rekap')->middleware(['auth']);;
 Route::resource('soal', SoalController::class)->middleware(['auth']);
 Route::resource('pilihan', PilihanController::class)->middleware(['auth']);
 Route::resource('tes', TesController::class)->middleware(['auth']);
 Route::resource('pengumuman', PengumumanController::class)->middleware(['auth']);
+Route::resource('setting', SettingController::class)->middleware(['auth']);
 require __DIR__.'/auth.php';

@@ -31,7 +31,7 @@
 
             {{-- nomor WA --}}
             <div class="mt-4">
-                <x-label for="noWA" :value="__('Nomor WhatsApp')" />
+                <x-label for="noWA" :value="__('Nomor WhatsApp (+62xxx)')" />
                 <x-input id="noWA" class="block mt-1 w-full" type="text" name="noWA" :value="old('noWA')"
                     required />
             </div>

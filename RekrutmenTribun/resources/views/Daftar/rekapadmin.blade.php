@@ -95,8 +95,9 @@
                                                     type="button"><i class="bi bi-eye"></i></a></td>
                                             <td><a href="storage/daftar/{{ $item->cv }}" class="btn btn-outline-dark"
                                                     type="button"><i class="bi bi-eye"></i></a></td>
-                                            <td><a href="storage/daftar/{{ $item->lamaran }}" class="btn btn-outline-dark"
-                                                    type="button"><i class="bi bi-eye"></i></a></td>
+                                            <td><a href="storage/daftar/{{ $item->surat_lamaran }}"
+                                                    class="btn btn-outline-dark" type="button"><i
+                                                        class="bi bi-eye"></i></a></td>
                                             <td>
                                                 @if ($item->data_pendukung == '-')
                                                     -

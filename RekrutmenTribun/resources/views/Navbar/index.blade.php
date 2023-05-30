@@ -97,31 +97,40 @@
         </div>
 
         <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
-            <li class="nav-item"><a class="nav-link" href="{{ url('lamaran') }}">
-                    <svg class="nav-icon">
-                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-home"></use>
-                    </svg>Lamaran</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="{{ url('rekapitulasiadministrasi') }}">
-                    <svg class="nav-icon">
-                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-indent-decrease"></use>
-                    </svg>Administrasi</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="{{ url('wawancara') }}">
-                    <svg class="nav-icon">
-                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-voice-over-record"></use>
-                    </svg>Wawancara</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="{{ url('psikotes') }}">
-                    <svg class="nav-icon">
-                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-color-border"></use>
-                    </svg>Psikotes</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="{{ url('pengumuman') }}">
-                    <svg class="nav-icon">
-                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-align-center"></use>
-                    </svg>Pengumuman Akhir</a>
-            </li>
+            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'non-admin')
+                <li class="nav-item"><a class="nav-link" href="{{ url('lamaran') }}">
+                        <svg class="nav-icon">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-home"></use>
+                        </svg>Lamaran</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('rekapitulasiadministrasi') }}">
+                        <svg class="nav-icon">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-indent-decrease"></use>
+                        </svg>Administrasi</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('wawancara') }}">
+                        <svg class="nav-icon">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-voice-over-record"></use>
+                        </svg>Wawancara</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('psikotes') }}">
+                        <svg class="nav-icon">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-color-border"></use>
+                        </svg>Psikotes</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('pengumuman') }}">
+                        <svg class="nav-icon">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-align-center"></use>
+                        </svg>Pengumuman Akhir</a>
+                </li>
+            @elseif (auth()->user()->role == 'super-admin')
+                <li class="nav-item"><a class="nav-link" href="{{ url('setting') }}">
+                        <svg class="nav-icon">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
+                        </svg>Super Admin</a>
+                </li>
+            @endif
+
         </ul>
         <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
     </div>
@@ -141,34 +150,16 @@
                 </a>
                 <ul class="header-nav ms-3">
                     <div class="mt-2">
-                        <p class="">{{ auth()->user()->name }}</p>
+                        <p class="">Halo, {{ auth()->user()->name }}</p>
                     </div>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button"
                             aria-haspopup="true" aria-expanded="false">
-                            <div class="avatar avatar-md"><img class="avatar-img" src="{{ asset('robet.png') }}"
-                                    alt="user@email.com"></div>
+                            <i class="bi bi-person-circle fs-3"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end pt-0">
-                            <div class="dropdown-header bg-light py-2">
-                                <div class="fw-semibold"></div>
-                            </div>
-                            <a class="dropdown-item" href="#">
-                                <svg class="icon me-2">
-                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-bell"></use>
-                                </svg> Notifikasi<span class="badge badge-sm bg-info ms-2">42</span>
-                            </a>
-                            <div class="dropdown-header bg-light py-2">
-                                <div class="fw-semibold"></div>
-                            </div>
-                            <a class="dropdown-item" href="#">
-                                <svg class="icon me-2">
-                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
-                                </svg> Profil</a>
-                            <div class="dropdown-header bg-light py-2">
-                                <div class="fw-semibold"></div>
-                            </div>
+
                             <form method="POST" action="{{ route('logout') }}" class="nav-link">
                                 @csrf
 

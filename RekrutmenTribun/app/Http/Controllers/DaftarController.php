@@ -273,13 +273,18 @@ class DaftarController extends Controller
         if(strtotime($buka_lamaran) >= strtotime($tutup_lamaran)){
             $request->session()->flash('info','Waktu buka harus lebih dulu dari waktu tutup!');
             return redirect()->route('daftar.index');
-        }else{
+        }elseif($ValidasiData['tanggal_buka'] && $ValidasiData['waktu_buka'] && $ValidasiData['tanggal_tutup'] && $ValidasiData['waktu_tutup'] )
+        {
             $waktu_lamaran = Lamaran::find($id);
             $waktu_lamaran->buka = $buka_lamaran;
             $waktu_lamaran->tutup = $tutup_lamaran;
             $waktu_lamaran->update();
             $request->session()->flash('info','Waktu telah di ubah!');
             return redirect()->route('daftar.index');
+
+        }else{
+            $request->session()->flash('info','Semua data harus di isi!');
+            return ('Daftar.tutup');
         }   
     }
         

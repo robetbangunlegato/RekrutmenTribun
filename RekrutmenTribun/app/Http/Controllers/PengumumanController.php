@@ -123,4 +123,9 @@ class PengumumanController extends Controller
     {
         //
     }
+
+    public function rekap(){
+        $hasil_totals = hasil_totals::where('status_akhir','diterima')->get();
+        return view('Pengumuman.rekap')->with('hasil_totals',$hasil_totals);
+    }
 }

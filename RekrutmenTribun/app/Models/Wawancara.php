@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Wawancara extends Model
 {
     public function daftar(){
-        return $this->hasOne('App\Models\Daftar');
+        return $this->belongsTo('App\Models\Daftar');
     }
     use HasFactory;
 
