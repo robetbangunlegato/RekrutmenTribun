@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Daftar;
+use App\Models\lamarans;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -23,10 +23,10 @@ class RekapController extends Controller
         if($user_role == 'non-admin'){
             $user = Auth::user()->id;
             
-            $daftars = DB::table('daftars')
-            ->select('daftars.*','lamarans.posisi')
-            ->join('users','users.id','=','daftars.user_id')
-            ->join('lamarans', 'daftars.lamaran_id','=','lamarans.id')
+            $daftars = DB::table('lamarans')
+            ->select('lamarans.*','lowongans.posisi')
+            ->join('users','users.id','=','lamarans.user_id')
+            ->join('lowongans', 'lamarans.lamaran_id','=','lowongans.id')
             ->where('user_id',$user)
             ->get();
 
@@ -40,7 +40,7 @@ class RekapController extends Controller
             }            
             
         }elseif($user_role == 'admin'){
-            $daftars = Daftar::all();
+            $daftars = lamarans::all();
             if(count($daftars) < 1){
                 $daftars = 'Tidak ada data';
             }
@@ -103,7 +103,7 @@ class RekapController extends Controller
     {
         //
         $update_status_administrasi = $request->input('status_administrasi');
-        $daftar = Daftar::find($id);
+        $daftar = lamarans::find($id);
         $daftar->status_administrasi = $update_status_administrasi;
         $daftar->update();
         

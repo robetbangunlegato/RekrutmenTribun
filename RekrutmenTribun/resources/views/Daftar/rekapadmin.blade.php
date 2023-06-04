@@ -69,7 +69,7 @@
                         @elseif(auth()->user()->role == 'admin')
                             @php
                                 // menghitung jumlah kemunculan karakter '-'
-                                $jumlah_karakter = DB::table('daftars')
+                                $jumlah_karakter = DB::table('lamarans')
                                     ->where('status_administrasi', '=', '-')
                                     ->sum(DB::raw('LENGTH(status_administrasi)'));
                             @endphp

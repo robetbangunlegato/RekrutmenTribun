@@ -162,13 +162,11 @@
 
                             <form method="POST" action="{{ route('logout') }}" class="nav-link">
                                 @csrf
-
                                 <a href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();"
                                     class="btn btn-outline-danger btn-block">{{ __('Keluar') }}
                                 </a>
-
                             </form>
 
                         </div>

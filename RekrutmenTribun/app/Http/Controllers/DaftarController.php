@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\DaftarController;
-use App\Models\Lamaran;
-use App\Models\Daftar;
+use App\Models\lowongans;
+use App\Models\lamarans;
 use Carbon\carbon;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -36,39 +36,39 @@ class DaftarController extends Controller
             return $this->lamaranController->index();
 
         }else{
-            $foto = Lamaran::find($id_lamaran)->select('foto')->get()[0]->foto;
+            $foto = lowongans::find($id_lamaran)->select('foto')->get()[0]->foto;
             // cek apakah sudah pernah isi data
             // ambil user id
             $userId = auth()->user()->id;
-            $daftars = Daftar::where('user_id',$userId)->first();
+            $daftars = lamarans::where('user_id',$userId)->first();
             // jika sudah ada data
             if($daftars){
 
-                $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
+                $lamaran_dipilih = lowongans::where('id', $id_lamaran)->first();
                 // ambil waktu buka
-                $waktu_bukaArr = Lamaran::where('id', $id_lamaran)->first('buka');
+                $waktu_bukaArr = lowongans::where('id', $id_lamaran)->first('buka');
                 $waktu_buka = Carbon::parse($waktu_bukaArr['buka']);
 
                 // ambil waktu tutup
-                $waktu_tutupArr = Lamaran::where('id',$id_lamaran)->first('tutup');
+                $waktu_tutupArr = lowongans::where('id',$id_lamaran)->first('tutup');
                 $waktu_tutup = Carbon::parse($waktu_tutupArr['tutup']);
 
                 // waktu input terbaru user
-                $waktu_input_terbaru_nonparse = Daftar::where('user_id',$userId)->latest()->value('waktu_kirim');
+                $waktu_input_terbaru_nonparse = lamarans::where('user_id',$userId)->latest()->value('waktu_kirim');
                 $waktu_input_terbaru = Carbon::parse($waktu_input_terbaru_nonparse);
 
                 if(strtotime($waktu_input_terbaru) >= strtotime($waktu_buka) && strtotime($waktu_input_terbaru) <= strtotime($waktu_tutup)){
-                    $lamaran = Lamaran::all();
+                    $lamaran = lowongans::all();
                     $request->session()->flash('info', 'Kamu hanya dapat mengirimkan 1 formulir lamaran dalam 1 kali sesi rekrutmen!');
                     return view('Lamaran.index')->with('lamarans',$lamaran);
                 }else{
-                    $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
+                    $lamaran_dipilih = lowongans::where('id', $id_lamaran)->first();
                     // ambil waktu buka
-                    $waktu_bukaArr = Lamaran::where('id', $id_lamaran)->first('buka');
+                    $waktu_bukaArr = lowongans::where('id', $id_lamaran)->first('buka');
                     $waktu_buka = Carbon::parse($waktu_bukaArr['buka']);
 
                     // ambil waktu tutup
-                    $waktu_tutupArr = Lamaran::where('id',$id_lamaran)->first('tutup');
+                    $waktu_tutupArr = lowongans::where('id',$id_lamaran)->first('tutup');
                     $waktu_tutup = Carbon::parse($waktu_tutupArr['tutup']);
 
                     // ambil waktu saat ini
@@ -85,13 +85,13 @@ class DaftarController extends Controller
                     }
                 }        
             }else{
-                $lamaran_dipilih = Lamaran::where('id', $id_lamaran)->first();
+                $lamaran_dipilih = lowongans::where('id', $id_lamaran)->first();
                 // ambil waktu buka
-                $waktu_bukaArr = Lamaran::where('id', $id_lamaran)->first('buka');
+                $waktu_bukaArr = lowongans::where('id', $id_lamaran)->first('buka');
                 $waktu_buka = Carbon::parse($waktu_bukaArr['buka']);
 
                 // ambil waktu tutup
-                $waktu_tutupArr = Lamaran::where('id',$id_lamaran)->first('tutup');
+                $waktu_tutupArr = lowongans::where('id',$id_lamaran)->first('tutup');
                 $waktu_tutup = Carbon::parse($waktu_tutupArr['tutup']);
 
                 // ambil waktu saat ini
@@ -189,7 +189,7 @@ class DaftarController extends Controller
             $nama_data_pendukung = $request->data_pendukung->storeAs('public/daftar',$data_pendukung);
         }
 
-        $daftars = new Daftar();
+        $daftars = new lamarans();
         $daftars->user_id = Auth::user()->id;
         $daftars->lamaran_id = $ValidasiData['id'];
         $daftars->ktp = $ktp;
@@ -224,7 +224,7 @@ class DaftarController extends Controller
     }
 
     public function showadmin(){
-        $daftars = Daftar::all();
+        $daftars = lamarans::all();
         return view ('Daftar.rekapadmin')->with('daftars', $daftars);
     }
 
@@ -275,7 +275,7 @@ class DaftarController extends Controller
             return redirect()->route('daftar.index');
         }elseif($ValidasiData['tanggal_buka'] && $ValidasiData['waktu_buka'] && $ValidasiData['tanggal_tutup'] && $ValidasiData['waktu_tutup'] )
         {
-            $waktu_lamaran = Lamaran::find($id);
+            $waktu_lamaran = lowongans::find($id);
             $waktu_lamaran->buka = $buka_lamaran;
             $waktu_lamaran->tutup = $tutup_lamaran;
             $waktu_lamaran->update();

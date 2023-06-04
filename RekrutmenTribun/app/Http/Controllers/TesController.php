@@ -38,7 +38,7 @@ class TesController extends Controller
         $waktu_sekarang_parse = Carbon::parse($waktu_sekarang);
 
         // cari status administrasi dan wawancara user login
-        $status_administrasi = DB::table('daftars')
+        $status_administrasi = DB::table('lamarans')
         ->select('status_administrasi')
         ->where('user_id', auth()->user()->id)
         ->orderBy('created_at', 'desc')
@@ -47,7 +47,7 @@ class TesController extends Controller
         
         $status_administrasi_id = '';
         if ($status_administrasi != null) {
-            $status_administrasi_id = DB::table('daftars')
+            $status_administrasi_id = DB::table('lamarans')
             ->select('id')
             ->where('user_id', auth()->user()->id)
             ->orderBy('created_at', 'desc')
@@ -62,7 +62,7 @@ class TesController extends Controller
 
         $status_wawancara = DB::table('wawancaras')
         ->select('status_wawancara')
-        ->where('daftar_id',$status_administrasi_id)
+        ->where('lamarans_id',$status_administrasi_id)
         ->orderBy('created_at', 'desc')
         ->first();   
         

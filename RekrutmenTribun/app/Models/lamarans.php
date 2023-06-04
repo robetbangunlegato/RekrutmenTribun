@@ -4,15 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Lamaran;
-class Daftar extends Model
+class lamarans extends Model
 {
-    protected $table = 'daftars';
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
     public function lamaran(){
-        return $this->belongsTo(Lamaran::class);
+        return $this->belongsTo(lowongans::class);
     }
     public function wawancara(){
         return $this->hasOne('App\Models\Wawancara');

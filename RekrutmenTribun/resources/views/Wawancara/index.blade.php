@@ -36,13 +36,13 @@
                         <tbody>
                             @php
                                 // menghitung jumlah kemunculan karakter '-'
-                                $jumlah_kata = DB::table('daftars')
+                                $jumlah_kata = DB::table('lamarans')
                                     ->where('status_administrasi', 'LIKE', '%diterima%')
                                     ->count();
                                 
-                                $jumlah_karakter = DB::table('daftars')
-                                    ->leftJoin('wawancaras', 'daftars.id', '=', 'wawancaras.daftar_id')
-                                    ->whereNull('wawancaras.daftar_id')
+                                $jumlah_karakter = DB::table('lamarans')
+                                    ->leftJoin('wawancaras', 'lamarans.id', '=', 'wawancaras.lamarans_id')
+                                    ->whereNull('wawancaras.lamarans_id')
                                     ->count();
                                 
                             @endphp

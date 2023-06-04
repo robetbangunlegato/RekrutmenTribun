@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Carbon\carbon;
-use App\Models\Lamaran;
+use App\Models\lowongans;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -19,7 +19,7 @@ class LamaranController extends Controller
     {
         //
 
-        $lamarans = Lamaran::all();
+        $lamarans = lowongans::all();
         return view('Lamaran.index')->with("lamarans", $lamarans);
     }
 
@@ -66,7 +66,7 @@ class LamaranController extends Controller
         $alamat = $request->foto->storeAs('public',$nama_baru);
 
         // 4.buat sebuah objek dari tabel yang dimana kita akan menyimpan data-datanya.
-        $lamarans = new Lamaran();
+        $lamarans = new lowongans();
         $lamarans->posisi = $ValidasiData['posisi'];
         $lamarans->deskripsi = $ValidasiData['deskripsi'];
         $lamarans->foto = $nama_baru;
@@ -99,7 +99,7 @@ class LamaranController extends Controller
         return redirect()->back();
     }else{
         // meengambil data yang dipilih (semua kolom)
-        $data = Lamaran::findOrFail($id);
+        $data = lowongans::findOrFail($id);
         // mengambil data id yang dipilih (kolom id saja)
         $id = $data->id;
         // mengirim data dengan key acess 'id'
@@ -120,7 +120,7 @@ class LamaranController extends Controller
     public function edit($id)
     {
         //
-        $lamaran = Lamaran::find($id);
+        $lamaran = lowongans::find($id);
         return view('Lamaran.edit')->with('lamarans',$lamaran);
     }
 
@@ -131,7 +131,7 @@ class LamaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Lamaran $lamaran)
+    public function update(Request $request,lowongans $lamaran)
     {
         // melakukan validasi input
         $ValidasiData = $request->validate([
@@ -157,7 +157,7 @@ class LamaranController extends Controller
         }
 
         // buat sebuah objek dari tabel yang dimana kita akan menyimpan data-datanya.
-        $lamaran = Lamaran::find($lamaran->id);           
+        $lamaran = lowongans::find($lamaran->id);           
         $lamaran->posisi = $ValidasiData['posisi'];
         $lamaran->deskripsi = $ValidasiData['deskripsi'];
         $lamaran->foto = $nama_baru;
@@ -182,12 +182,12 @@ class LamaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lamaran $lamaran)
+    public function destroy(lowongans $lamaran)
     {   
 
         // menghapus foto dari local storage
         // 1.ambil nama file yang ingin di hapus
-        $nama_foto = Lamaran::find($lamaran)->pluck('foto');
+        $nama_foto = lowongans::find($lamaran)->pluck('foto');
         // 2.hapus file tersebut tapi pastikan bentuk nama nya berbentuk single value buka array, selesai foto di local sudah terhapus.
         Storage::delete(['public/'.$nama_foto[0]]);
 

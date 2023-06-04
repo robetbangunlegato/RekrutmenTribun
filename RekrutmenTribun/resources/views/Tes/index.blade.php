@@ -16,13 +16,19 @@
         </div>
     </div>
 
+    <div class="align-items-end col-12 justify-content-end">
+        <p class="text-danger" style="position: fixed; z-index: 1" id="waktu_sisa"></p>
+    </div>
+
 
     @if ($status_administrasi == 'diterima' && $status_wawancara == 'diterima')
-        <div class="container mt-5">
+        <div class="container mt-2">
+
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">Psikotes</div>
+
                         <div class="card-body">
                             <form method="POST" action="{{ route('tes.store') }}">
                                 @csrf

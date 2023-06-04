@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class soals extends Model
 {
-    // protected $table = 'soals';
     use HasFactory;
 
     public function kategori_soals(){

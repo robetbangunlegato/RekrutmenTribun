@@ -29,6 +29,13 @@ class PsikotesController extends Controller
     {
         //
         $kategori_soals = kategori_soals::withCount('soals')->groupBy('id')->get();
+    //     $kategori_soals = kategori_soals::withCount('soals')
+    // ->select('kategori_soals.*')
+    // ->groupBy('kategori_soals.id', 'kategori_soals.created_at')
+    // ->get();
+
+    // dd($kategori_soals);
+
         return view('Psikotes.create')->with('kategori_soals',$kategori_soals);
     }
 

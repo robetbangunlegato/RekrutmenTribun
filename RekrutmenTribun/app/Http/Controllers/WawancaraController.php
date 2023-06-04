@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Daftar;
+use App\Models\lamarans;
 use App\Models\Wawancara;
 use App\Models\hasil_akhir;
 use Illuminate\Support\Facades\DB;
@@ -23,14 +23,14 @@ class WawancaraController extends Controller
         $user_role = auth()->user()->role;
 
         if($user_role == 'admin'){
-            $daftars = Daftar::all();
+            $daftars = lamarans::all();
             $waktu = DB::table('wawancaras')
             ->select('waktu')
             ->get();
             $wawancaras = Wawancara::all();
             return view('Wawancara.index')->with('daftars',$daftars)->with('waktu',$waktu);
         }else{
-            $daftar_id = DB::table('daftars')
+            $daftar_id = DB::table('lamarans')
             ->select('id')
             ->where('user_id',$user_id)
             ->first();
@@ -45,7 +45,7 @@ class WawancaraController extends Controller
             
             $wawancaras = DB::table('wawancaras')
             ->select('wawancaras.*')
-            ->where('daftar_id',$daftar_id)
+            ->where('lamarans_id',$daftar_id)
             ->get();
 
             // dd($wawancaras);
@@ -88,10 +88,10 @@ class WawancaraController extends Controller
 
         $wawancaras = new Wawancara();
         $wawancaras->waktu = $tanggal_waktu;
-        $wawancaras->daftar_id = $ValidasiData['id_kirim'];
+        $wawancaras->lamarans_id = $ValidasiData['id_kirim'];
         $wawancaras->save();
 
-        $daftars = Daftar::all();
+        $daftars = lamarans::all();
         return view('Wawancara.index')->with('daftars',$daftars);        
     }
 
@@ -106,22 +106,22 @@ class WawancaraController extends Controller
         //
         $nama = DB::table('users')
         ->select('users.name')
-        ->join('daftars','users.id','=','daftars.user_id')
-        ->join('wawancaras','daftars.id','=','wawancaras.daftar_id')
+        ->join('lamarans','users.id','=','lamarans.user_id')
+        ->join('wawancaras','lamarans.id','=','wawancaras.lamarans_id')
         ->where('wawancaras.id',$id)
         ->get();
 
         $wawancara_daftarID = DB::table('wawancaras')
-        ->select('daftar_id')
+        ->select('lamarans_id')
         ->where('id',$id)
         ->get();
 
-        $wawancara_daftarID_singleValue = $wawancara_daftarID[0]->daftar_id;
+        $wawancara_daftarID_singleValue = $wawancara_daftarID[0]->lamarans_id;
 
-        $daftars = DB::table('daftars')
-        ->select('daftars.*')
-        ->join('wawancaras','daftars.id','=','wawancaras.daftar_id')
-        ->where('wawancaras.daftar_id',$wawancara_daftarID_singleValue)
+        $daftars = DB::table('lamarans')
+        ->select('lamarans.*')
+        ->join('wawancaras','lamarans.id','=','wawancaras.lamarans_id')
+        ->where('wawancaras.lamarans_id',$wawancara_daftarID_singleValue)
         ->get();
 
         $wawancaras = Wawancara::find($id);
