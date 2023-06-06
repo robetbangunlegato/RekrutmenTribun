@@ -21,7 +21,7 @@
     </div>
 
 
-    @if ($status_administrasi == 'diterima' && $status_wawancara == 'diterima')
+    @if ($status_administrasi == 'berkas diterima' && $status_wawancara == 'wawancara diterima')
         <div class="container mt-2">
 
             <div class="row justify-content-center">

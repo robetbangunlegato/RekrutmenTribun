@@ -46,9 +46,8 @@
                                     ->count();
                                 
                             @endphp
-                            {{-- @dd($jumlah_karakter) --}}
                             @foreach ($daftars as $item)
-                                @if ($item->status_administrasi == 'diterima' && $item->wawancara == null)
+                                @if ($item->status_administrasi == 'berkas diterima' && $item->wawancara == null)
                                     <tr class="align-middle">
                                         <td class="text-center">
                                             <div>{{ $item->user->name }}</div>
@@ -95,12 +94,12 @@
                                                 <input type="text" name="user_id" value="{{ $item->user->id }}" hidden>
                                                 <input type="hidden" name="id" value="{{ $item->wawancara->id }}">
                                                 <button class="btn btn-success" type="submit" name="status_wawancara"
-                                                    value="diterima">
+                                                    value="wawancara diterima">
                                                     <i class="bi bi-check-circle">
                                                     </i>
                                                 </button>
                                                 <button class="btn btn-danger" type="submit" name="status_wawancara"
-                                                    value="ditolak">
+                                                    value="wawancara ditolak">
                                                     <i class="bi bi-x-circle"></i>
                                                 </button>
                                             </form>

@@ -116,12 +116,12 @@
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{ $item->id }}">
                                                     <button class="btn btn-success" type="submit" id="btn-wa"
-                                                        name="status_administrasi" value="diterima">
+                                                        name="status_administrasi" value="berkas diterima">
                                                         <i class="bi bi-check-circle">
                                                         </i>
                                                     </button>
                                                     <button class="btn btn-danger" type="submit" name="status_administrasi"
-                                                        value="ditolak">
+                                                        value="berkas ditolak">
                                                         <i class="bi bi-x-circle"></i>
                                                     </button>
                                                 </form>
